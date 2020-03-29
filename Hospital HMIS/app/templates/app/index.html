@@ -3,8 +3,8 @@
 {% block content %}
 
 <div class="jumbotron">
-    <h1>Django</h1>
-    <p class="lead">Django is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <h1>Ministry of Health</h1>
+    <p class="lead">Hospital HMIS</p>
     <p><a href="https://www.djangoproject.com/" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
 </div>
 
@@ -21,20 +21,20 @@
     <div class="col-md-4">
         <h2>OPD 1st Attendance</h2>
         <span style="font-size: 72px; color: Dodgerblue;">
-            <a  href="{% url "opd_event_create" %}"><i class="fas fa-plus-circle"></i></a>
-            
+            <a  href="/create_opd_event"><i class="fas fa-plus-circle"></i></a> 
         </span>
         <span style="font-size: 72px; color: Dodgerblue;">
-            <a  href="{% url "opd_event_list" %}"><i class="fas fa-list"></i></a>
+            <a  href="/list_opd_events"<i class="fas fa-list"></i></a>
         </span>
-        
-        
-        <p><a class="btn btn-default" href="https://pypi.org/">Learn more &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Microsoft Azure</h2>
-        <p>You can easily publish to Microsoft Azure using Visual Studio. Find out how you can host your application using a free trial today.</p>
-        <p><a class="btn btn-default" href="http://azure.microsoft.com">Learn more &raquo;</a></p>
+        <h2>IPD Discharge Cases</h2>
+        <span style="font-size: 72px; color: Dodgerblue;">
+            <a  href="/create_opd_event"><i class="fas fa-plus-circle"></i></a>
+        </span>
+        <span style="font-size: 72px; color: Dodgerblue;">
+            <a  href="/list_opd_events"><i class="fas fa-list"></i></a>
+        </span>
     </div>
 </div>
 

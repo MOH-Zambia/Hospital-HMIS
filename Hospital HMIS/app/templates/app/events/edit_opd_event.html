@@ -1,0 +1,132 @@
+﻿{% extends "app/layout.html" %}
+
+{% block content %}
+
+<form id="opd_event_form" class="post-form" method="post" action="/update/{{opd_event.id}}">
+    {% csrf_token %}
+    <div class="container">
+        <br>
+        <div class="form-group row">  
+            <label class="col-sm-1 col-form-label"></label>  
+            <div class="col-sm-4">  
+                <h3>OPD 1st Attendance Event</h3>  
+            </div>  
+        </div>  
+
+        <div class="form-group row">  
+            <label class="col-sm-2 col-form-label" for="reference_number">Reference Number:</label>
+            <div class="col-sm-4">  
+                <input  id="reference_number" type="text" name="reference_number" required maxlength="20" value="{{ opd_event.reference_number }}"/>  
+            </div>
+        </div>
+
+        <div class="form-group row">  
+            <label class="col-sm-2 col-form-label" for="age_in_days">Age in Days:</label>
+            <div class="col-sm-4"> 
+                <input id="age_in_days" type="number" name="age_in_days" maxlength="20" value="{{ opd_event.age_in_days }}"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label" for="age_in_months">Age in Months:</label>
+            <div class="col-sm-4"> 
+                <input id="age_in_months" type="number" name="age_in_months" maxlength="20" value="{{ opd_event.age_in_months }}"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="age_in_years">Age in Years:</label>
+            <div class="col-sm-4"> 
+                <input id="age_in_years" type="number" name="age_in_years" maxlength="20" value="{{ opd_event.age_in_years }}"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="date_of_attendance">Date of Attendance:</label>
+            <div class="col-sm-4">
+                 <input id="date_of_attendance" type="date" name="age_in_years" value="{{ opd_event.date_of_attendance }}"/> 
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="report_date">Report Date:</label>
+            <div class="col-sm-4">
+                 <input id="report_date" type="date" name="report_date" value="{{ opd_event.report_date }}"/> 
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="location">Location:</label>
+            <div class="col-sm-4">
+                 <input id="location" type="text" name="location" maxlength="20" value="{{ opd_event.location }}"/> 
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <input type="radio" id="male" name="gender" value="M">
+            <label for="male">Male</label><br>
+            <input type="radio" id="female" name="gender" value="F">
+            <label for="female">Female</label>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="diagnosis">Diagnosis:</label>
+            <div class="col-sm-4">
+                <select id="diagnosis" name="diagnosis">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="secondary_diagnosis">Secondary Diagnosis:</label>
+            <div class="col-sm-4">
+                <select id="secondary_diagnosis" name="secondary_diagnosis">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="other_diagnosis">Other Diagnosis:</label>
+            <div class="col-sm-4">
+                <select id="other_diagnosis" name="other_diagnosis">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+  
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="referred_from">Referred From:</label>
+            <div class="col-sm-4">
+                 {{ form.referred_from }} 
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="referred_to">Referred To:</label>
+            <div class="col-sm-4">
+                 {{ form.referred_to }} 
+            </div>
+        </div>
+
+        <input type="checkbox" id="event_completed" name="event_completed" value="True">
+        <label for="event_completed">Event Completed</label><br>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="comment">Comment:</label>
+            <div class="col-sm-4">
+                 {{ form.comments }} 
+            </div>
+        </div>
+
+        <div class="form-group row">  
+            <label class="col-sm-1 col-form-label"></label>  
+            <div class="col-sm-4">  
+                <button type="submit" class="btn btn-primary">Submit</button>  
+            </div>  
+        </div>    
+    </div>
+</form>
+
+{% endblock %}

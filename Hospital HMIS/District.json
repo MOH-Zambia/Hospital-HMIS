@@ -1,0 +1,462 @@
+[
+ {
+   "name": "Livingstone",
+   "province": "Southern"
+ },
+ {
+   "name": "Sinazongwe",
+   "province": "Southern"
+ },
+ {
+   "name": "Kalulushi",
+   "province": "Copperbelt"
+ },
+ {
+   "name": "Gwembe",
+   "province": "Southern"
+ },
+ {
+   "name": "Monze",
+   "province": "Southern"
+ },
+ {
+   "name": "Kalomo",
+   "province": "Southern"
+ },
+ {
+   "name": "Choma",
+   "province": "Southern"
+ },
+ {
+   "name": "Kazungula",
+   "province": "Southern"
+ },
+ {
+   "name": "Siavonga",
+   "province": "Southern"
+ },
+ {
+   "name": "Namwala",
+   "province": "Southern"
+ },
+ {
+   "name": "Mulobezi",
+   "province": "Western"
+ },
+ {
+   "name": "Senanga",
+   "province": "Western"
+ },
+ {
+   "name": "Mongu",
+   "province": "Western"
+ },
+ {
+   "name": "Itezhi-Tezhi",
+   "province": "Central"
+ },
+ {
+   "name": "Luangwa",
+   "province": "Lusaka"
+ },
+ {
+   "name": "Rufunsa",
+   "province": "Lusaka"
+ },
+ {
+   "name": "Chienge",
+   "province": "Luapula"
+ },
+ {
+   "name": "Kabwe",
+   "province": "Central"
+ },
+ {
+   "name": "Masaiti",
+   "province": "Copperbelt"
+ },
+ {
+   "name": "Chadiza",
+   "province": "Eastern"
+ },
+ {
+   "name": "Nyimba",
+   "province": "Eastern"
+ },
+ {
+   "name": "Kitwe",
+   "province": "Copperbelt"
+ },
+ {
+   "name": "Katete",
+   "province": "Eastern"
+ },
+ {
+   "name": "Petauke",
+   "province": "Eastern"
+ },
+ {
+   "name": "Luano",
+   "province": "Central"
+ },
+ {
+   "name": "Mpongwe",
+   "province": "Copperbelt"
+ },
+ {
+   "name": "Kasenengwa",
+   "province": "Eastern"
+ },
+ {
+   "name": "Chavuma",
+   "province": "North-Western"
+ },
+ {
+   "name": "Mambwe",
+   "province": "Eastern"
+ },
+ {
+   "name": "Kasempa",
+   "province": "North-Western"
+ },
+ {
+   "name": "Luanshya",
+   "province": "Copperbelt"
+ },
+ {
+   "name": "Mufulira",
+   "province": "Copperbelt"
+ },
+ {
+   "name": "Chitambo",
+   "province": "Central"
+ },
+ {
+   "name": "Lumezi",
+   "province": "Eastern"
+ },
+ {
+   "name": "Solwezi",
+   "province": "North-Western"
+ },
+ {
+   "name": "Ndola",
+   "province": "Copperbelt"
+ },
+ {
+   "name": "Milenge",
+   "province": "Luapula"
+ },
+ {
+   "name": "Mwinilunga",
+   "province": "North-Western"
+ },
+ {
+   "name": "Samfya",
+   "province": "Luapula"
+ },
+ {
+   "name": "Chilubi",
+   "province": "Northern"
+ },
+ {
+   "name": "Mansa",
+   "province": "Luapula"
+ },
+ {
+   "name": "Chama",
+   "province": "Muchinga"
+ },
+ {
+   "name": "Luwingu",
+   "province": "Northern"
+ },
+ {
+   "name": "Shiwang'andu",
+   "province": "Muchinga"
+ },
+ {
+   "name": "Kasama",
+   "province": "Northern"
+ },
+ {
+   "name": "Mungwi",
+   "province": "Northern"
+ },
+ {
+   "name": "Kawambwa",
+   "province": "Luapula"
+ },
+ {
+   "name": "Mporokoso",
+   "province": "Northern"
+ },
+ {
+   "name": "Nakonde",
+   "province": "Muchinga"
+ },
+ {
+   "name": "Kaputa",
+   "province": "Northern"
+ },
+ {
+   "name": "Nchelenge",
+   "province": "Luapula"
+ },
+ {
+   "name": "Mpulungu",
+   "province": "Northern"
+ },
+ {
+   "name": "Nsama",
+   "province": "Northern"
+ },
+ {
+   "name": "Chirundu",
+   "province": "Lusaka"
+ },
+ {
+   "name": "Lunga",
+   "province": "Luapula"
+ },
+ {
+   "name": "Chembe",
+   "province": "Luapula"
+ },
+ {
+   "name": "Chinsali",
+   "province": "Muchinga"
+ },
+ {
+   "name": "Mkushi",
+   "province": "Central"
+ },
+ {
+   "name": "Pemba",
+   "province": "Southern"
+ },
+ {
+   "name": "Chongwe",
+   "province": "Lusaka"
+ },
+ {
+   "name": "Chisamba",
+   "province": "Central"
+ },
+ {
+   "name": "Lusaka",
+   "province": "Lusaka"
+ },
+ {
+   "name": "Sesheke",
+   "province": "Western"
+ },
+ {
+   "name": "Sikongo",
+   "province": "Western"
+ },
+ {
+   "name": "Chililabombwe",
+   "province": "Copperbelt"
+ },
+ {
+   "name": "Mufumbwe",
+   "province": "North-Western"
+ },
+ {
+   "name": "Luampa",
+   "province": "Western"
+ },
+ {
+   "name": "Zimba",
+   "province": "Southern"
+ },
+ {
+   "name": "Vubwi",
+   "province": "Eastern"
+ },
+ {
+   "name": "Mitete",
+   "province": "Western"
+ },
+ {
+   "name": "Limulunga",
+   "province": "Western"
+ },
+ {
+   "name": "Serenje",
+   "province": "Central"
+ },
+ {
+   "name": "Manyinga",
+   "province": "North-Western"
+ },
+ {
+   "name": "Mwansabombwe",
+   "province": "Luapula"
+ },
+ {
+   "name": "Chikankata",
+   "province": "Southern"
+ },
+ {
+   "name": "Shibuyunji",
+   "province": "Lusaka"
+ },
+ {
+   "name": "Chibombo",
+   "province": "Central"
+ },
+ {
+   "name": "Shang'ombo",
+   "province": "Western"
+ },
+ {
+   "name": "Zambezi",
+   "province": "North-Western"
+ },
+ {
+   "name": "Kabompo",
+   "province": "North-Western"
+ },
+ {
+   "name": "Ikelenge",
+   "province": "North-Western"
+ },
+ {
+   "name": "Kalumbila",
+   "province": "North-Western"
+ },
+ {
+   "name": "Mushindano",
+   "province": "North-Western"
+ },
+ {
+   "name": "Chingola",
+   "province": "Copperbelt"
+ },
+ {
+   "name": "Lufwanyama",
+   "province": "Copperbelt"
+ },
+ {
+   "name": "Lukulu",
+   "province": "Western"
+ },
+ {
+   "name": "Kafue",
+   "province": "Lusaka"
+ },
+ {
+   "name": "Isoka",
+   "province": "Muchinga"
+ },
+ {
+   "name": "Mafinga",
+   "province": "Muchinga"
+ },
+ {
+   "name": "Mwense",
+   "province": "Luapula"
+ },
+ {
+   "name": "Nalolo",
+   "province": "Western"
+ },
+ {
+   "name": "Chipili",
+   "province": "Luapula"
+ },
+ {
+   "name": "Sinda",
+   "province": "Eastern"
+ },
+ {
+   "name": "Kalabo",
+   "province": "Western"
+ },
+ {
+   "name": "Mwandi",
+   "province": "Western"
+ },
+ {
+   "name": "Sioma",
+   "province": "Western"
+ },
+ {
+   "name": "Kaoma",
+   "province": "Western"
+ },
+ {
+   "name": "Nkeyema",
+   "province": "Western"
+ },
+ {
+   "name": "Mumbwa",
+   "province": "Central"
+ },
+ {
+   "name": "Kapiri-Mposhi",
+   "province": "Central"
+ },
+ {
+   "name": "Ngabwe",
+   "province": "Central"
+ },
+ {
+   "name": "Mazabuka",
+   "province": "Southern"
+ },
+ {
+   "name": "Chilanga",
+   "province": "Lusaka"
+ },
+ {
+   "name": "Mpika",
+   "province": "Muchinga"
+ },
+ {
+   "name": "Lavushi Manda",
+   "province": "Muchinga"
+ },
+ {
+   "name": "Kanchibiya",
+   "province": "Muchinga"
+ },
+ {
+   "name": "Lunte",
+   "province": "Northern"
+ },
+ {
+   "name": "Senga Hill",
+   "province": "Northern"
+ },
+ {
+   "name": "Mbala",
+   "province": "Northern"
+ },
+ {
+   "name": "Lupososhi",
+   "province": "Northern"
+ },
+ {
+   "name": "Chifunabuli",
+   "province": "Luapula"
+ },
+ {
+   "name": "Chipata",
+   "province": "Eastern"
+ },
+ {
+   "name": "Chipangali",
+   "province": "Eastern"
+ },
+ {
+   "name": "Lundazi",
+   "province": "Eastern"
+ },
+ {
+   "name": "Chasefu",
+   "province": "Eastern"
+ }
+]

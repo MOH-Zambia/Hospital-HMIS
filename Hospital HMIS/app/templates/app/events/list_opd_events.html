@@ -1,0 +1,57 @@
+﻿{% extends "app/layout.html" %}
+
+{% block content %}
+
+<table class="table table-striped table-bordered table-sm">
+    <thead class="thead-dark">
+        <tr>
+            <th>Reference Number</th>
+            <th>Date of Birth</th>
+            <th>Age in Days</th>
+            <th>Age in Months</th>
+            <th>Age in Years</th>
+            <th>Date of Attendance</th>
+            <th>Report Date</th>
+            <th>Location</th>
+            <th>Gender</th>
+            <th>Diagnosis</th>
+            <th>Secondary Diagnosis</th>
+            <th>Other Diagnosis</th>
+            <th>Referred From</th>
+            <th>Referred To</th>
+            <th>Event Completed</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for opd_event in opd_events %}
+        <tr>
+            <td>{{ opd_event.reference_number }}</td>
+            <td>{{ opd_event.date_of_birth }}</td>
+            <td>{{ opd_event.age_in_days }}</td>
+            <td>{{ opd_event.age_in_months }}</td>
+            <td>{{ opd_event.age_in_years }}</td>
+            <td>{{ opd_event.date_of_attendance }}</td>
+            <td>{{ opd_event.report_date }}</td>
+            <td>{{ opd_event.location }}</td>
+            <td>{{ opd_event.gender }}</td>
+            <td>{{ opd_event.diagnosis }}</td>
+            <td>{{ opd_event.secondary_diagnosis }}</td>
+            <td>{{ opd_event.other_diagnosis }}</td>
+            <td>{{ opd_event.refered_from }}</td>
+            <td>{{ opd_event.refered_to }}</td>
+            <td>{{ opd_event.event_completed }}</td>
+            <td>
+                <a href="/edit_opd_event/{{ opd_event.id }}"><span class="glyphicon glyphicon-pencil">Edit</span></a>
+                <a href="/delete_opd_event/{{ opd_event.id }}">Delete</a>
+            </td>
+        </tr>
+
+        {% endfor %}
+    </tbody>
+</table>
+
+<br>  
+<br>  
+<center><a href="/create_opd_event" class="btn btn-primary">Add New Record</a> <a href="/export_csv" class="btn btn-success">Export CSV</a></center>  
+
+{% endblock %}

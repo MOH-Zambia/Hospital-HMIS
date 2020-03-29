@@ -13,30 +13,9 @@ class Province(models.Model):
         return self.name
 
 
-class DistrictType(models.Model):
-    name = models.CharField(max_length=15, unique=True)
-
-    def __str__(self):  # __unicode__ on Python 2
-        return self.name
-
-    class Meta:
-        verbose_name_plural = "District Types"
-
-
-class LocationType(models.Model):
-    name = models.CharField(max_length=10, unique=True)
-
-    def __str__(self):  # __unicode__ on Python 2
-        return self.name
-
-    class Meta:
-        verbose_name_plural = "Location Types"
-
-
 class District(models.Model):
     name = models.CharField(max_length=30, unique=True)
     province = models.ForeignKey(Province, on_delete=models.DO_NOTHING)
-    district_type = models.ForeignKey(DistrictType, on_delete=models.DO_NOTHING)
 
     def get_province(self):
         return self.province.name
@@ -75,9 +54,18 @@ class FacilityType(models.Model):
         verbose_name_plural = "Facility Types"
 
 
+class LocationType(models.Model):
+    name = models.CharField(max_length=10, unique=True)
+
+    def __str__(self):  # __unicode__ on Python 2
+        return self.name
+
+    class Meta:
+        verbose_name_plural = "Location Types"
+
+
 class Facility(models.Model):
     DHIS2_UID = models.CharField(max_length=13, null=True, blank=True)
-    HMIS_code = models.CharField(max_length=10, null=True, blank=True)
     name = models.CharField(max_length=100)
     facility_type = models.ForeignKey(FacilityType, on_delete=models.DO_NOTHING)
     district = models.ForeignKey(District, on_delete=models.DO_NOTHING)
@@ -110,13 +98,12 @@ class Facility(models.Model):
 
 
 class ICD10(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    uid = models.CharField(max_length=100, unique=True)
-    code = models.CharField(max_length=100, unique=True)
-    option = models.CharField(max_length=100, unique=True)
+    uid = models.CharField(max_length=100)
+    code = models.CharField(max_length=100)
+    description = models.CharField(max_length=120)
 
     def __str__(self):  # __unicode__ on Python 2
-        return self.name
+        return "{0} {1}".format(self.code, self.description)
 
     class Meta:
         verbose_name_plural = "ICD10 Codes"
@@ -129,12 +116,15 @@ class OPDEvent(models.Model):
     age_in_months = models.IntegerField()
     age_in_years = models.IntegerField()
     report_date = models.DateField(auto_now_add=True, auto_now=False)
-    data_of_attendance = models.DateField()
+    date_of_attendance = models.DateField()
     location = models.CharField(max_length=120, blank=True)
     gender = models.CharField(max_length=1)
-    diagnosis = models.ForeignKey(ICD10, on_delete=models.DO_NOTHING)
-    secondary_diagnosis = models.ForeignKey(ICD10, related_name='secondary_diagnosis', on_delete=models.DO_NOTHING)
-    other_diagnosis = models.ForeignKey(ICD10, related_name='other_diagnosis', on_delete=models.DO_NOTHING, blank=True)
+    #diagnosis = models.ForeignKey(ICD10, on_delete=models.DO_NOTHING)
+    diagnosis = models.CharField(max_length=100)
+    #secondary_diagnosis = models.ForeignKey(ICD10, related_name='secondary_diagnosis', on_delete=models.DO_NOTHING)
+    secondary_diagnosis = models.CharField(max_length=100)
+    #other_diagnosis = models.ForeignKey(ICD10, related_name='other_diagnosis', on_delete=models.DO_NOTHING, blank=True)
+    other_diagnosis = models.CharField(max_length=100)
     # referred_from = models.ForeignKey(Facility, on_delete=models.DO_NOTHING, blank=True)
     # referred_to = models.ForeignKey(Facility, on_delete=models.DO_NOTHING, blank=True)
     referred_from = models.CharField(max_length=120, blank=True)

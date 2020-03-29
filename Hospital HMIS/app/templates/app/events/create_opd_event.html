@@ -1,0 +1,174 @@
+﻿{% extends "app/layout.html" %}
+
+{% block content %}
+
+{% load widget_tweaks %}
+
+<form id="opd_event_form" class="post-form border border-primary bg-sucess text-black-50" method="post" action="/create_opd_event">
+    {% csrf_token %}
+    <div class="container">
+        <br>
+        <div class="form-group row">  
+            <label class="col-sm-1 col-form-label"></label>  
+            <div class="col-sm-4">  
+                <h3>OPD 1st Attendance Event</h3>  
+            </div>  
+        </div>  
+
+        <div class="form-group row striped">  
+            <label class="col-sm-2 col-form-label" for="reference_number">Reference Number:</label>
+            <div class="col-sm-4">  
+                {{ form.reference_number|add_class:"form-control" }} 
+            </div>
+        </div>
+
+        <div class="form-group row">  
+            <label class="col-sm-2 col-form-label" for="age_in_days">Date of Birth:</label>
+            <div class="col-sm-4"> 
+                {{ form.date_of_birth|add_class:"form-control" }} 
+            </div>
+        </div>
+
+        <div class="form-group row striped">  
+            <label class="col-sm-2 col-form-label" for="age_in_days">Age in Days:</label>
+            <div class="col-sm-4"> 
+                {{ form.age_in_days|add_class:"form-control" }} 
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-sm-2 col-form-label" for="age_in_months">Age in Months:</label>
+            <div class="col-sm-4"> 
+                {{ form.age_in_months|add_class:"form-control" }} 
+            </div>
+        </div>
+
+        <div class="form-group row striped">
+            <label class="col-sm-2 col-form-label" for="age_in_years">Age in Years:</label>
+            <div class="col-sm-4"> 
+                {{ form.age_in_years|add_class:"form-control" }} 
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="date_of_attendance">Date of Attendance:</label>
+            <div class="col-sm-4">
+                 {{ form.date_of_attendance|add_class:"form-control" }} 
+            </div>
+        </div>
+
+        <div class="form-group row striped">
+            <label class="col-sm-2 col-form-label" for="location">Location:</label>
+            <div class="col-sm-4">
+                 {{ form.location|add_class:"form-control" }} 
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="gender">Gender:</label>
+            <div class="col-sm-4">
+                {{ form.gender|add_class:"list-unstyled" }} 
+            </div>
+        </div>
+
+        <div class="form-group row striped">
+            <label class="col-sm-2 col-form-label" for="diagnosis">Diagnosis:</label>
+            <div class="col-sm-4">
+                {{ form.diagnosis|add_class:"form-control" }} 
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="secondary_diagnosis">Secondary Diagnosis:</label>
+            <div class="col-sm-4">
+                {{ form.secondary_diagnosis|add_class:"form-control" }} 
+            </div>
+        </div>
+
+        <div class="form-group row striped">
+            <label class="col-sm-2 col-form-label" for="other_diagnosis">Other Diagnosis:</label>
+            <div class="col-sm-4">
+                {{ form.other_diagnosis|add_class:"form-control" }}
+            </div>
+        </div>
+  
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="referred_from">Referred From:</label>
+            <div class="col-sm-4">
+                 {{ form.referred_from|add_class:"form-control" }} 
+            </div>
+        </div>
+
+        <div class="form-group row striped">
+            <label class="col-sm-2 col-form-label" for="referred_to">Referred To:</label>
+            <div class="col-sm-4">
+                 {{ form.referred_to|add_class:"form-control" }} 
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="event_completed">Event Completed?</label>
+            <div class="col-sm-4">
+                {{ form.event_completed }} 
+            </div>
+        </div>
+
+        <div class="form-group row striped">
+            <label class="col-sm-2 col-form-label" for="comment">Comments:</label>
+            <div class="col-sm-4">
+                 {{ form.comments|add_class:"form-control" }} 
+            </div>
+        </div>
+
+        <div class="form-group row">  
+            <div class="col-sm-2">  
+                <button type="submit" class="btn btn-primary small-vertical-spacing">Save and add new</button>
+            </div>
+            <div class="col-sm-2">  
+                <button type="submit" class="btn btn-success small-vertical-spacing">Save and go back</button>  
+            </div>
+            <div class="col-sm-2">  
+                <button type="reset" class="btn btn-default small-vertical-spacing">Cancel</button>
+            </div>  
+        </div>  
+
+    </div>
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+        $(document).ready(function(){ 
+            $("#id_diagnosis").autocomplete({
+                source: "/diagnosis-autocomplete",
+                minLength: 2,
+                open: function(){
+                    setTimeout(function () {
+                        $('.ui-autocomplete').css('z-index', 99);
+                    }, 0);
+                }
+            });
+
+            $("#id_secondary_diagnosis").autocomplete({
+                source: "/diagnosis-autocomplete",
+                minLength: 2,
+                open: function(){
+                    setTimeout(function () {
+                        $('.ui-autocomplete').css('z-index', 99);
+                    }, 0);
+                }
+            });
+
+            $("#id_other_diagnosis").autocomplete({
+                source: "/diagnosis-autocomplete",
+                minLength: 2,
+                open: function(){
+                    setTimeout(function () {
+                        $('.ui-autocomplete').css('z-index', 99);
+                    }, 0);
+                }
+            });
+        });
+</script>
+{% endblock %}

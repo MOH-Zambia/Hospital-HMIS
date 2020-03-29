@@ -1,0 +1,42 @@
+[
+ {
+   "id": 1,
+   "name": "Central"
+ },
+ {
+   "id": 2,
+   "name": "Copperbelt"
+ },
+ {
+   "id": 3,
+   "name": "Western"
+ },
+ {
+   "id": 4,
+   "name": "Southern"
+ },
+ {
+   "id": 5,
+   "name": "North-Western"
+ },
+ {
+   "id": 6,
+   "name": "Lusaka"
+ },
+ {
+   "id": 7,
+   "name": "Eastern"
+ },
+ {
+   "id": 8,
+   "name": "Luapula"
+ },
+ {
+   "id": 9,
+   "name": "Muchinga"
+ },
+ {
+   "id": 10,
+   "name": "Northern"
+ }
+]

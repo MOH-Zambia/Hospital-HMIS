@@ -1,0 +1,15 @@
+{
+  "dhis2": {
+    "baseurl": "https://dhis2.moh.gov.zm/dev",
+    "username": "SmartcareDataAnalyst1",
+    "password": "K@nsenshi04"
+  },
+
+  "database": {
+    "host": "localhost",
+    "port": 5432,
+    "username": "username",
+    "password": "password",
+    "dbname": "dhis2"
+  }
+}

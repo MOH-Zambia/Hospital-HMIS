@@ -4,9 +4,12 @@ Definition of urls for Hospital_HMIS.
 
 from datetime import datetime
 from django.urls import path
+from django.urls import include
+from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
 from app import forms, views
+from app.views import DiagnosisAutocomplete
 
 
 urlpatterns = [
@@ -26,10 +29,20 @@ urlpatterns = [
          ),
          name='login'),
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
+    # url(r"^autocomplete/", include("autocomplete_light.urls")),
     path('admin/', admin.site.urls),
-    path('OPDEvents', views.OPDEventList.as_view(), name='opd_event_list'),
-    path('OPDEvent/<int:pk>', views.OPDEventDetail.as_view(), name='opd_event_detail'),
-    path('create', views.OPDEventCreate.as_view(), name='opd_event_create'),
-    path('update/<int:pk>', views.OPDEventUpdate.as_view(), name='opd_event_update'),
-    path('delete/<int:pk>', views.OPDEventDelete.as_view(), name='opd_event_delete'),
+    
+    #path('OPDEvents', views.OPDEventList.as_view(), name='opd_event_list'),
+    #path('OPDEvent/<int:pk>', views.OPDEventDetail.as_view(), name='opd_event_detail'),
+
+    path('create_opd_event', views.create_opd_event),
+    path('list_opd_events', views.list_opd_events),  
+    path('edit_opd_event/<int:id>', views.edit_opd_event),  
+    path('update_opd_event/<int:pk>', views.update_opd_event),
+    path('delete_opd_event/<int:pk>', views.delete_opd_event),
+
+    #path('diagnosis-autocomplete', DiagnosisAutocomplete.as_view(), name='diagnosis-autocomplete'),
+
+    path('diagnosis-autocomplete', views.autocompleteModel),
+    path('export_csv', views.export_csv),
 ]
