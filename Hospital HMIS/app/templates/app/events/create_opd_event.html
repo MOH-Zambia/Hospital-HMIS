@@ -23,7 +23,7 @@
         </div>
 
         <div class="form-group row">  
-            <label class="col-sm-2 col-form-label" for="age_in_days">Date of Birth:</label>
+            <label class="col-sm-2 col-form-label" for="date_of_birth">Date of Birth:</label>
             <div class="col-sm-4"> 
                 {{ form.date_of_birth|add_class:"form-control" }} 
             </div>
@@ -141,7 +141,7 @@
 <script>
         $(document).ready(function(){ 
             $("#id_diagnosis").autocomplete({
-                source: "/diagnosis-autocomplete",
+                source: "/autocomplete_icd10_diagnosis",
                 minLength: 2,
                 open: function(){
                     setTimeout(function () {
@@ -151,7 +151,7 @@
             });
 
             $("#id_secondary_diagnosis").autocomplete({
-                source: "/diagnosis-autocomplete",
+                source: "/autocomplete_icd10_diagnosis",
                 minLength: 2,
                 open: function(){
                     setTimeout(function () {
@@ -161,7 +161,7 @@
             });
 
             $("#id_other_diagnosis").autocomplete({
-                source: "/diagnosis-autocomplete",
+                source: "/autocomplete_icd10_diagnosis",
                 minLength: 2,
                 open: function(){
                     setTimeout(function () {
@@ -169,6 +169,36 @@
                     }, 0);
                 }
             });
+
+            var date_diff_in_days = function(date1, date2) {
+                dt1 = new Date(date1);
+                dt2 = new Date(date2);
+                return Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) /(1000 * 60 * 60 * 24));
+            }
+
+            function date_diff_in_months(date1, date2) {
+                var diff = (date2.getTime() - date1.getTime()) / 1000;
+                diff /= (60 * 60 * 24 * 7 * 4);
+                return Math.abs(Math.floor(diff));
+            }
+
+            function date_diff_in_years(date1, date2) {
+                var diff = (date2.getTime() - date1.getTime()) / 1000;
+                diff /= (60 * 60 * 24);
+                return Math.abs(Math.floor(diff/365.25));
+             }
+
+            $("#id_date_of_birth").datepicker();
+            $("#id_date_of_attendance").datepicker();
+
+            $("#id_date_of_birth").change(function () {
+                var age_in_days = date_diff_in_days(new Date($(this).val()), new Date())
+                var age_in_months = date_diff_in_months(new Date($(this).val()), new Date())
+                var age_in_years = date_diff_in_years(new Date($(this).val()), new Date())
+                $('#id_age_in_days').val(age_in_days);
+                $('#id_age_in_months').val(age_in_months);
+                $('#id_age_in_years').val(age_in_years);
+            }); 
         });
 </script>
 {% endblock %}

@@ -9,8 +9,6 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
 from app import forms, views
-from app.views import DiagnosisAutocomplete
-
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -41,8 +39,6 @@ urlpatterns = [
     path('update_opd_event/<int:pk>', views.update_opd_event),
     path('delete_opd_event/<int:pk>', views.delete_opd_event),
 
-    #path('diagnosis-autocomplete', DiagnosisAutocomplete.as_view(), name='diagnosis-autocomplete'),
-
-    path('diagnosis-autocomplete', views.autocompleteModel),
+    path('autocomplete_icd10_diagnosis', views.autocomplete_icd10_diagnosis),
     path('export_csv', views.export_csv),
 ]

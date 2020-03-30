@@ -12,7 +12,6 @@ from django.contrib.auth.decorators import login_required
 #from django.core.urlresolvers import reverse
 from django.http import HttpRequest, HttpResponseRedirect, HttpResponse, JsonResponse
 from django.template import RequestContext
-from dal import autocomplete
 import json
 import csv
 import sys
@@ -141,17 +140,7 @@ def delete_opd_event(request, id):
     return redirect("app/events/list_opd_events")  
 
 
-class DiagnosisAutocomplete(autocomplete.Select2QuerySetView):
-    def get_queryset(self):
-
-        qs = ICD10.objects.all()
-
-        if self.q:
-            qs = qs.filter(name__istartswith=self.q)
-
-        return qs
-
-def autocompleteModel(request):
+def autocomplete_icd10_diagnosis(request):
     if request.is_ajax():
         q = request.GET.get('term', '').capitalize()
         search_qs = ICD10.objects.filter(description__startswith=q)
@@ -168,33 +157,33 @@ def autocompleteModel(request):
 
 
 def export_csv(request):
-    opd_events = OPDEvents.objects.all()
+    opd_events = OPDEvent.objects.all()
 
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment: filename="OPD_1st_Attendance.csv"'
+    response['Content-Disposition'] = 'attachment;filename="OPD_1st_Attendance.csv"'
 
     writer = csv.writer(response, delimiter=',')
-    writer.writerow(
-            reference_number,
-            date_of_birth,
-            age_in_days,
-            age_in_months,
-            age_in_years,
-            report_date,
-            date_of_attendance,
-            location,
-            gender,
-            diagnosis,
-            secondary_diagnosis,
-            other_diagnosis,
-            referred_from,
-            referred_to,
-            event_completed,
-            comments,
+    writer.writerow([
+            'reference_number',
+            'date_of_birth',
+            'age_in_days',
+            'age_in_months',
+            'age_in_years',
+            'report_date',
+            'date_of_attendance',
+            'location',
+            'gender',
+            'diagnosis',
+            'secondary_diagnosis',
+            'other_diagnosis',
+            'referred_from',
+            'referred_to',
+            'event_completed',
+            'comments',]
         )
 
     for opd_event in opd_events:
-         writer.writerow(
+         writer.writerow([
             opd_event.reference_number,
             opd_event.date_of_birth,
             opd_event.age_in_days,
@@ -210,7 +199,7 @@ def export_csv(request):
             opd_event.referred_from,
             opd_event.referred_to,
             opd_event.event_completed,
-            opd_event.comments,
+            opd_event.comments,]
         )
 
     return response
