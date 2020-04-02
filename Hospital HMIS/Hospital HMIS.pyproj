@@ -69,7 +69,6 @@
     <Folder Include="app\templates\" />
     <Folder Include="app\templates\app\" />
     <Folder Include="app\templates\app\events\" />
-    <Folder Include="config\" />
     <Folder Include="Hospital_HMIS\" />
     <Folder Include="scripts\" />
   </ItemGroup>
@@ -120,8 +119,6 @@
     <Content Include="app\templates\app\events\edit_opd_event.html" />
     <Content Include="app\templates\app\events\list_ipd_events.html" />
     <Content Include="app\templates\app\events\list_opd_events.html" />
-    <Content Include="config\config.json" />
-    <Content Include="config\djicon.png" />
     <Content Include="dhis2.json" />
     <Content Include="favicon.ico" />
     <Content Include="requirements.txt" />
