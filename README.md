@@ -2,7 +2,7 @@
 
 
 ## How run the tool
-```bash
+```
 Step 1: Download the tool from https://github.com/MOH-Zambia/Hospital-HMIS/releases 
 ```
 
