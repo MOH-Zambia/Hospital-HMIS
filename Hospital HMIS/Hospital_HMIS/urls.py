@@ -40,6 +40,6 @@ urlpatterns = [
     path('delete_ipd_event/<int:pk>', views.delete_ipd_event, name='delete_ipd_event'),
 
     path('autocomplete_icd10_diagnosis', views.autocomplete_icd10_diagnosis),
-    path('export_opd_events', views.export_ipd_events),
+    path('export_opd_events', views.export_opd_events),
     path('export_ipd_events', views.export_ipd_events),
 ]

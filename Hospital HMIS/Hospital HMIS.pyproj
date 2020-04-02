@@ -70,7 +70,6 @@
     <Folder Include="app\templates\app\" />
     <Folder Include="app\templates\app\events\" />
     <Folder Include="Hospital_HMIS\" />
-    <Folder Include="scripts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\management\commands\__pycache__\load.cpython-36.pyc" />
@@ -153,9 +152,6 @@
     <Content Include="robots.txt" />
     <Content Include="runApp.bat" />
     <Content Include="runServer.bat" />
-    <Content Include="scripts\cmd.bat" />
-    <Content Include="scripts\env.bat" />
-    <Content Include="scripts\python.bat" />
     <Content Include="setup.bat" />
   </ItemGroup>
   <ItemGroup>
