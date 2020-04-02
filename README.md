@@ -13,9 +13,9 @@ Step 2: Unzip folder anywhere on your computer
 ```bash
 Step 3: Double-click on runServer.bat to the server 
 ```
-![Screenshot](screenshot1.png)
+![Screenshot](Screenshot1.png)
 
 ```bash
 Step 4: Double-click on runApp to run the application 
 ```
-![Screenshot](screenshot2.png)
+![Screenshot](Screenshot2.png)
