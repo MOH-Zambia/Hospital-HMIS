@@ -65,6 +65,7 @@ class LocationType(models.Model):
 
 
 class Facility(models.Model):
+    facility_id = models.IntegerField(null=True, blank=True)
     DHIS2_UID = models.CharField(max_length=13, null=True, blank=True)
     name = models.CharField(max_length=100)
     facility_type = models.ForeignKey(FacilityType, on_delete=models.DO_NOTHING)
@@ -78,7 +79,7 @@ class Facility(models.Model):
         return self.district.province.name
 
     def __str__(self):  # __unicode__ on Python 2
-        return "%s | %s" % (self.HMIS_code, self.name)
+        return "%s | %s" % (self.id, self.name)
 
     class Meta:
         verbose_name = "Facility"
@@ -115,7 +116,6 @@ class OPDEvent(models.Model):
     age_in_days = models.IntegerField()
     age_in_months = models.IntegerField()
     age_in_years = models.IntegerField()
-    report_date = models.DateField(auto_now_add=True, auto_now=False)
     date_of_attendance = models.DateField()
     location = models.CharField(max_length=120, blank=True)
     gender = models.CharField(max_length=1)
@@ -131,6 +131,54 @@ class OPDEvent(models.Model):
     referred_to = models.CharField(max_length=120, blank=True)
     event_completed = models.BooleanField()
     comments = models.TextField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, auto_now=False)
+    updated_at = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __str__(self):  # __unicode__ on Python 2
+        return self.reference_number
+
+    def get_absolute_url(self):
+        return reverse('opd_event_detail', args=[str(self.id)])
+
+    class Meta:
+        verbose_name_plural = "OPD 1st Attendance Events"
+
+
+class SeparationMode(models.Model):
+    name = models.CharField(max_length=60, unique=True)
+
+    def __str__(self):  # __unicode__ on Python 2
+        return self.name
+
+    class Meta:
+        verbose_name_plural = "Separation Modes"
+
+
+class IPDEvent(models.Model):
+    reference_number = models.CharField(max_length=100, unique=True)
+    date_of_birth = models.DateField()
+    age_in_days = models.IntegerField()
+    age_in_months = models.IntegerField()
+    age_in_years = models.IntegerField()
+    date_of_admission = models.DateField()
+    location = models.CharField(max_length=120, blank=True)
+    gender = models.CharField(max_length=1)
+    date_of_separation = models.DateField()
+    mode_of_separation = models.ForeignKey(SeparationMode, on_delete=models.DO_NOTHING)
+    #diagnosis = models.ForeignKey(ICD10, on_delete=models.DO_NOTHING)
+    diagnosis = models.CharField(max_length=100)
+    #secondary_diagnosis = models.ForeignKey(ICD10, related_name='secondary_diagnosis', on_delete=models.DO_NOTHING)
+    secondary_diagnosis = models.CharField(max_length=100)
+    #other_diagnosis = models.ForeignKey(ICD10, related_name='other_diagnosis', on_delete=models.DO_NOTHING, blank=True)
+    other_diagnosis = models.CharField(max_length=100)
+    # referred_from = models.ForeignKey(Facility, on_delete=models.DO_NOTHING, blank=True)
+    # referred_to = models.ForeignKey(Facility, on_delete=models.DO_NOTHING, blank=True)
+    referred_from = models.CharField(max_length=120, blank=True)
+    referred_to = models.CharField(max_length=120, blank=True)
+    event_completed = models.BooleanField()
+    comments = models.TextField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, auto_now=False)
+    updated_at = models.DateTimeField(auto_now_add=False, auto_now=True)
 
     def __str__(self):  # __unicode__ on Python 2
         return self.reference_number

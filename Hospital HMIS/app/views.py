@@ -2,23 +2,22 @@
 Definition of views.
 """
 
-from datetime import datetime
-from django.shortcuts import render
-from django.http import HttpRequest
-from django.views.generic import ListView, DetailView 
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.shortcuts import get_object_or_404, render
-from django.contrib.auth.decorators import login_required
-#from django.core.urlresolvers import reverse
-from django.http import HttpRequest, HttpResponseRedirect, HttpResponse, JsonResponse
-from django.template import RequestContext
 import json
 import csv
 import sys
 import collections
+from datetime import datetime
 
-from app.models import OPDEvent, ICD10
-from app.forms import OPDEventForm
+from django.views.generic import ListView, DetailView 
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.shortcuts import get_object_or_404, render, redirect
+from django.contrib.auth.decorators import login_required
+from django.http import HttpRequest, HttpResponseRedirect, HttpResponse, JsonResponse
+from django.template import RequestContext
+from django.contrib import messages
+
+from app.models import ICD10, OPDEvent, IPDEvent
+from app.forms import OPDEventForm, IPDEventForm
 
 def home(request):
     """Renders the home page."""
@@ -40,7 +39,7 @@ def contact(request):
         'app/contact.html',
         {
             'title':'Contact',
-            'message':'Your contact page.',
+            'message':'Contact page.',
             'year':datetime.now().year,
         }
     )
@@ -53,7 +52,7 @@ def about(request):
         'app/about.html',
         {
             'title':'About',
-            'message':'Your application description page.',
+            'message':'Application description page.',
             'year':datetime.now().year,
         }
     )
@@ -64,20 +63,97 @@ def create_opd_event(request):
         form = OPDEventForm(request.POST)  
         if form.is_valid():  
             try:  
-                form.save()  
-                return redirect('app/events/list_opd_events')  
+                created_event = form.save() 
+                created_event_pk = created_event.id
+                messages.success(request, "Success - Event saved")
+
+                if request.POST.get("save_and_add_new"):
+                    form = OPDEventForm()  
+                    return render(
+                        request, 
+                        'app/events/create_opd_event.html', 
+                        {
+                            'form': form,
+                            'title': 'OPD 1st Attendance Event',
+                            'year': datetime.now().year,
+                        }
+                    )  
+                elif request.POST.get("save_and_go_back"):
+                    return HttpResponseRedirect(self.request.POST.get('previous_page'))
+
             except:  
                 pass  
-    else:  
-        form = OPDEventForm()  
 
+        else:
+             created_event_pk = None
+             messages.error(request, "Error - Could not save event")
+             return render(
+                        request, 
+                        'app/events/create_opd_event.html', 
+                        {
+                            'form': form,
+                            'title': 'OPD 1st Attendance Event',
+                            'year': datetime.now().year,
+                            'form': form,
+                        }
+                    )  
+     
+    form = OPDEventForm()  
     return render(
         request, 
         'app/events/create_opd_event.html', 
         {
             'form': form,
-            'title': 'New OPD Event',
-            'message': 'Your application description page.',
+            'title': 'OPD 1st Attendance Event',
+            'year': datetime.now().year,
+        }
+    )  
+
+def edit_opd_event(request, pk): 
+    
+    opd_event = get_object_or_404(OPDEvent, pk=pk)  
+    form = OPDEventForm(request.POST or None, instance=opd_event)  
+    
+    if request.method == "POST":  
+        if form.is_valid():  
+            try:  
+                form.save() 
+                messages.success(request, "Success - Event saved")
+
+                opd_events = OPDEvent.objects.all()  
+
+                return render(
+                    request,
+                    "app/events/list_opd_events.html", 
+                    {
+                        'opd_events': opd_events,
+                        'title': 'OPD 1st Attendance Events',
+                        'year': datetime.now().year,
+                    }
+                )  
+
+            except:  
+                pass  
+
+        else:
+            messages.error(request, "Error - Could not save event")
+            return render(
+                    request, 
+                    'app/events/edit_opd_event.html', 
+                    {
+                        'form': form,
+                        'title': 'Edit OPD 1st Attendance Event',
+                        'year': datetime.now().year,
+                        'form': form,
+                    }
+                )  
+
+    return render(
+        request,
+        'app/events/edit_opd_event.html', 
+        {
+            'form': form,
+            'title': 'Edit OPD 1st Attendance Event',
             'year': datetime.now().year,
         }
     )  
@@ -91,53 +167,167 @@ def list_opd_events(request):
         "app/events/list_opd_events.html", 
         {
             'opd_events': opd_events,
-            'title': 'List OPD Events',
-            'message': 'Your application description page.',
+            'title': 'OPD 1st Attendance Events',
             'year': datetime.now().year,
         }
     )  
 
 
-def edit_opd_event(request, id):  
-    opd_event = OPDEvent.objects.get(id=id)  
+def delete_opd_event(request, pk):  
+    opd_event = get_object_or_404(OPDEvent, pk=pk)   
+
+    try:  
+        opd_event.delete()  
+        messages.success(request, "Success - Event deleted!")
+    except:  
+        messages.error(request, "Error - Event could not be deleted!")
+
+    opd_events = OPDEvent.objects.all()  
+    return render(
+        request,
+        "app/events/list_opd_events.html", 
+        {
+            'opd_events': opd_events,
+            'title': 'OPD 1st Attendance Events',
+            'year': datetime.now().year,
+        }
+    )   
+
+
+def create_ipd_event(request):  
+    if request.method == "POST":  
+        form = IPDEventForm(request.POST)  
+        if form.is_valid():  
+            try:  
+                created_event = form.save() 
+                created_event_pk = created_event.id
+                messages.success(request, "Success - Event saved")
+
+                if request.POST.get("save_and_add_new"):
+                    form = IPDEventForm()  
+                    return render(
+                        request, 
+                        'app/events/create_ipd_event.html', 
+                        {
+                            'form': form,
+                            'title': 'IPD Discharge Event',
+                            'year': datetime.now().year,
+                        }
+                    )  
+                elif request.POST.get("save_and_go_back"):
+                    return HttpResponseRedirect(self.request.POST.get('previous_page'))
+
+            except:  
+                pass  
+
+        else:
+             created_event_pk = None
+             messages.error(request, "Error - Could not save event")
+             return render(
+                        request, 
+                        'app/events/create_ipd_event.html', 
+                        {
+                            'form': form,
+                            'title': 'IPD Discharge Event',
+                            'year': datetime.now().year,
+                            'form': form,
+                        }
+                    )  
+     
+    form = IPDEventForm()  
+    return render(
+        request, 
+        'app/events/create_ipd_event.html', 
+        {
+            'form': form,
+            'title': 'IPD Discharge Event',
+            'year': datetime.now().year,
+        }
+    )  
+
+def edit_ipd_event(request, pk): 
+    
+    ipd_event = get_object_or_404(IPDEvent, pk=pk)  
+    form = IPDEventForm(request.POST or None, instance=ipd_event)  
+    
+    if request.method == "POST":  
+        if form.is_valid():  
+            try:  
+                form.save() 
+                messages.success(request, "Success - Event saved")
+
+                ipd_events = IPDEvent.objects.all()  
+
+                return render(
+                    request,
+                    "app/events/list_ipd_events.html", 
+                    {
+                        'ipd_events': ipd_events,
+                        'title': 'IPD Discharge Events',
+                        'year': datetime.now().year,
+                    }
+                )  
+
+            except:  
+                pass  
+
+        else:
+            messages.error(request, "Error - Could not save event")
+            return render(
+                    request, 
+                    'app/events/edit_ipd_event.html', 
+                    {
+                        'form': form,
+                        'title': 'Edit IPD Discharge Event',
+                        'year': datetime.now().year,
+                        'form': form,
+                    }
+                )  
 
     return render(
         request,
-        'app/events/edit_opd_event.html', 
+        'app/events/edit_ipd_event.html', 
         {
-            'opd_event': opd_event,
-            'title': 'Edit OPD Event',
-            'message': 'Your application description page.',
+            'form': form,
+            'title': 'Edit IPD Discharge Event',
             'year': datetime.now().year,
         }
     )  
 
 
-def update_opd_event(request, id):  
-    opd_event = OPDEvent.objects.get(id=id)  
-    form = OPDEventForm(request.POST, instance = employee)  
-
-    if form.is_valid():  
-        form.save()  
-        return redirect("app/events/list_opd_events")  
+def list_ipd_events(request):  
+    ipd_events = IPDEvent.objects.all()  
 
     return render(
-        request, 
-        'app/events/edit_opd_event.html', 
+        request,
+        "app/events/list_ipd_events.html", 
         {
-            'opd_event': opd_event,
-            'title': 'Update OPD Event',
-            'message': 'Your application description page.',
+            'ipd_events': ipd_events,
+            'title': 'IPD Discharge Events',
             'year': datetime.now().year,
         }
     )  
 
 
-def delete_opd_event(request, id):  
-    opd_event = OPDEvent.objects.get(id=id)  
-    opd_event.delete()  
+def delete_ipd_event(request, pk):  
+    ipd_event = get_object_or_404(IPDEvent, pk=pk)   
 
-    return redirect("app/events/list_opd_events")  
+    try:  
+        ipd_event.delete()  
+        messages.success(request, "Success - Event deleted!")
+    except:  
+        messages.error(request, "Error - Event could not be deleted!")
+
+    ipd_events = IPDEvent.objects.all()  
+    return render(
+        request,
+        "app/events/list_ipd_events.html", 
+        {
+            'ipd_events': ipd_events,
+            'title': 'IPD Discharge Events',
+            'year': datetime.now().year,
+        }
+    )   
 
 
 def autocomplete_icd10_diagnosis(request):
@@ -156,7 +346,7 @@ def autocomplete_icd10_diagnosis(request):
     return HttpResponse(data, mimetype)
 
 
-def export_csv(request):
+def export_opd_events(request):
     opd_events = OPDEvent.objects.all()
 
     response = HttpResponse(content_type='text/csv')
@@ -189,7 +379,7 @@ def export_csv(request):
             opd_event.age_in_days,
             opd_event.age_in_months,
             opd_event.age_in_years,
-            opd_event.report_date,
+            opd_event.created_at,
             opd_event.date_of_attendance,
             opd_event.location,
             opd_event.gender,
@@ -200,6 +390,57 @@ def export_csv(request):
             opd_event.referred_to,
             opd_event.event_completed,
             opd_event.comments,]
+        )
+
+    return response
+
+
+def export_ipd_events(request):
+    ipd_events = IPDEvent.objects.all()
+
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment;filename="IPD_Discharge.csv"'
+
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow([
+            'reference_number',
+            'date_of_birth',
+            'age_in_days',
+            'age_in_months',
+            'age_in_years',
+            'date_of_admission',
+            'location',
+            'gender',
+            'date_of_separation',
+            'mode_of_separation',
+            'diagnosis',
+            'secondary_diagnosis',
+            'other_diagnosis',
+            'referred_from',
+            'referred_to',
+            'event_completed',
+            'comments',]
+        )
+
+    for ipd_event in ipd_events:
+         writer.writerow([
+            ipd_event.reference_number,
+            ipd_event.date_of_birth,
+            ipd_event.age_in_days,
+            ipd_event.age_in_months,
+            ipd_event.age_in_years,
+            ipd_event.date_of_admission,
+            ipd_event.location,
+            ipd_event.gender,
+            ipd_event.date_of_separation,
+            ipd_event.mode_of_separation,
+            ipd_event.diagnosis,
+            ipd_event.secondary_diagnosis,
+            ipd_event.other_diagnosis,
+            ipd_event.referred_from,
+            ipd_event.referred_to,
+            ipd_event.event_completed,
+            ipd_event.comments,]
         )
 
     return response
@@ -226,7 +467,7 @@ def sync(request):
 
     l = collections.OrderedDict()
     for i in k:
-	    l[i[0]] = i[1]
+        l[i[0]] = i[1]
 
     # Replace the old JSON with the new JSON
 

@@ -1,0 +1,95 @@
+﻿{% extends "app/layout.html" %}
+
+{% block content %}
+
+
+<div class="table-responsive-md">
+<table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>Reference Number</th>
+            <th>Date of Birth</th>
+            <th>Age in Days</th>
+            <th>Age in Months</th>
+            <th>Age in Years</th>
+            <th>Date of Admission</th>
+            <th>Report Date</th>
+            <th>Location</th>
+            <th>Gender</th>
+            <th>Date of Separation</th>
+            <th>Mode of Separation</th>
+            <th>Diagnosis</th>
+            <th>Secondary Diagnosis</th>
+            <th>Other Diagnosis</th>
+            <th>Referred From</th>
+            <th>Referred To</th>
+            <th>Event Completed</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ipd_event in ipd_events %}
+        <tr>
+            <td>{{ ipd_event.reference_number }}</td>
+            <td>{{ ipd_event.date_of_birth }}</td>
+            <td>{{ ipd_event.age_in_days }}</td>
+            <td>{{ ipd_event.age_in_months }}</td>
+            <td>{{ ipd_event.age_in_years }}</td>
+            <td>{{ ipd_event.date_of_admission }}</td>
+            <td>{{ ipd_event.created_at }}</td>
+            <td>{{ ipd_event.location }}</td>
+            <td>{{ ipd_event.gender }}</td>
+            <td>{{ ipd_event.date_of_separation }}</td>
+            <td>{{ ipd_event.mode_of_separation }}</td>
+            <td>{{ ipd_event.diagnosis }}</td>
+            <td>{{ ipd_event.secondary_diagnosis }}</td>
+            <td>{{ ipd_event.other_diagnosis }}</td>
+            <td>{{ ipd_event.referred_from }}</td>
+            <td>{{ ipd_event.referred_to }}</td>
+            <td>{{ ipd_event.event_completed }}</td>
+            <td>
+                <a href="/edit_ipd_event/{{ ipd_event.id }}"><span class="glyphicon glyphicon-pencil">Edit</span></a>
+                <a href="/delete_ipd_event/{{ ipd_event.id }}"><span class="glyphicon glyphicon-remove">Delete</span></a>
+            </td>
+        </tr>
+
+        {% endfor %}
+    </tbody>
+</table>
+
+<br>  
+<br>  
+<center><a href="/create_ipd_event" class="btn btn-primary">Add New Record</a> <a href="/export_ipd_events" class="btn btn-success">Export CSV</a></center>  
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+        $(document).ready(function(){ 
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-center",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+
+            {% if messages %}
+                {% for message in messages %}
+                    toastr.{{ message.tags }}('{{ message }}')
+                {% endfor %}
+            {% endif %}
+        });
+</script>
+{% endblock %}

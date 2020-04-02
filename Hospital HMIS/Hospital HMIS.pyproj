@@ -37,6 +37,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app\forms.py" />
+    <Compile Include="app\management\commands\load.py" />
+    <Compile Include="app\management\commands\seed.py" />
+    <Compile Include="app\management\commands\__init__.py" />
+    <Compile Include="app\management\__init__.py" />
     <Compile Include="app\models.py" />
     <Compile Include="app\tests.py" />
     <Compile Include="app\views.py" />
@@ -50,6 +54,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\" />
+    <Folder Include="app\management\" />
+    <Folder Include="app\management\commands\" />
+    <Folder Include="app\management\commands\__pycache__\" />
+    <Folder Include="app\management\__pycache__\" />
     <Folder Include="app\migrations\" />
     <Folder Include="app\static\" />
     <Folder Include="app\static\app\" />
@@ -61,9 +69,18 @@
     <Folder Include="app\templates\" />
     <Folder Include="app\templates\app\" />
     <Folder Include="app\templates\app\events\" />
+    <Folder Include="config\" />
     <Folder Include="Hospital_HMIS\" />
+    <Folder Include="scripts\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\management\commands\__pycache__\load.cpython-36.pyc" />
+    <Content Include="app\management\commands\__pycache__\seed.cpython-36.pyc" />
+    <Content Include="app\management\commands\__pycache__\seed.cpython-37.pyc" />
+    <Content Include="app\management\commands\__pycache__\__init__.cpython-36.pyc" />
+    <Content Include="app\management\commands\__pycache__\__init__.cpython-37.pyc" />
+    <Content Include="app\management\__pycache__\__init__.cpython-36.pyc" />
+    <Content Include="app\management\__pycache__\__init__.cpython-37.pyc" />
     <Content Include="app\static\app\css\all.css" />
     <Content Include="app\static\app\css\all.min.css" />
     <Content Include="app\static\app\css\brands.css" />
@@ -94,14 +111,20 @@
     <Content Include="app\static\app\js\solid.min.js" />
     <Content Include="app\static\app\js\v4-shims.js" />
     <Content Include="app\static\app\js\v4-shims.min.js" />
+    <Content Include="app\templates\app\events\create_ipd_event.html" />
     <Content Include="app\templates\app\events\create_opd_event.html" />
+    <Content Include="app\templates\app\events\delete_ipd_event.html" />
     <Content Include="app\templates\app\events\delete_opd_event.html" />
     <Content Include="app\templates\app\events\district_dropdown_list_options_partial.html" />
+    <Content Include="app\templates\app\events\edit_ipd_event.html" />
     <Content Include="app\templates\app\events\edit_opd_event.html" />
+    <Content Include="app\templates\app\events\list_ipd_events.html" />
     <Content Include="app\templates\app\events\list_opd_events.html" />
+    <Content Include="config\config.json" />
+    <Content Include="config\djicon.png" />
     <Content Include="dhis2.json" />
+    <Content Include="favicon.ico" />
     <Content Include="requirements.txt" />
-    <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />
     <Content Include="app\static\app\content\bootstrap.min.css" />
     <Content Include="app\static\app\content\site.css" />
@@ -130,6 +153,13 @@
     <Content Include="app\templates\app\layout.html" />
     <Content Include="app\templates\app\login.html" />
     <Content Include="app\templates\app\loginpartial.html" />
+    <Content Include="robots.txt" />
+    <Content Include="runApp.bat" />
+    <Content Include="runServer.bat" />
+    <Content Include="scripts\cmd.bat" />
+    <Content Include="scripts\env.bat" />
+    <Content Include="scripts\python.bat" />
+    <Content Include="setup.bat" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.html">
@@ -140,11 +170,11 @@
     <Interpreter Include="env\">
       <Id>env</Id>
       <Version>3.7</Version>
-      <Description>env (Python 3.7 (64-bit))</Description>
+      <Description>env (Python 3.7 (32-bit))</Description>
       <InterpreterPath>Scripts\python.exe</InterpreterPath>
       <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
       <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
-      <Architecture>X64</Architecture>
+      <Architecture>X86</Architecture>
     </Interpreter>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Django.targets" />

@@ -1,22 +1,22 @@
 {% extends "app/layout.html" %}
 
-{% block content %}
+{% load staticfiles %}
 
-<div class="jumbotron">
-    <h1>Ministry of Health</h1>
+{% block content %}
+<div class="jumbotron text-center">
+    <img src="{% static 'app/img/Coat_of_Arms_96x110.png' %}" alt="Republic of Zambia Coat of Arms"/>
+    <h2 class="font-weight-bold">MINISTRY OF HEALTH</h2>
     <p class="lead">Hospital HMIS</p>
-    <p><a href="https://www.djangoproject.com/" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+    <p><a href="https://www.moh.gov.zm" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
 </div>
 
 <div class="row">
     <div class="col-md-4">
         <h2>Getting started</h2>
         <p>
-            Django gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            This Hospital HMIS tool is for capturing OPD and IPD events offline. The tool is able to export a CSV File for upload into the National DHIS2 instance
         </p>
-        <p><a class="btn btn-default" href="https://djangobook.com/django-tutorials/">Learn more &raquo;</a></p>
+        <p><a class="btn btn-default" href="https://dhis2.moh.gov.zm/hmis">DHIS2 Instance&raquo;</a></p>
     </div>
     <div class="col-md-4">
         <h2>OPD 1st Attendance</h2>
@@ -30,10 +30,10 @@
     <div class="col-md-4">
         <h2>IPD Discharge Cases</h2>
         <span style="font-size: 72px; color: Dodgerblue;">
-            <a  href="/create_opd_event"><i class="fas fa-plus-circle"></i></a>
+            <a  href="/create_ipd_event"><i class="fas fa-plus-circle"></i></a>
         </span>
         <span style="font-size: 72px; color: Dodgerblue;">
-            <a  href="/list_opd_events"><i class="fas fa-list"></i></a>
+            <a  href="/list_ipd_events"><i class="fas fa-list"></i></a>
         </span>
     </div>
 </div>

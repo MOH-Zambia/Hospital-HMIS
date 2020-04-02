@@ -2,12 +2,13 @@
 Definition of forms.
 """
 
+from datetime import datetime
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
-from app.models import OPDEvent, ICD10
+from app.models import ICD10, OPDEvent, IPDEvent
 
 class BootstrapAuthenticationForm(AuthenticationForm):
     """Authentication form which uses boostrap CSS."""
@@ -45,17 +46,55 @@ class OPDEventForm(forms.ModelForm):
         pass
 
 
-    def clean_diagnosis(self):
+    #def clean_date_of_birth(self):
+    #    date_of_birth = self.cleaned_data['date_of_birth']
+    #    if date_of_birth:
+    #        try:
+    #            date_of_birth = datetime.strptime(date_of_birth, '%d/%m/%Y')
+    #            print('The date {} is valid.'.format(date_of_birth))
+    #        except ValueError:
+    #            msg = 'The date {} is invalid'.format(date_of_birth)
+    #            print(msg)
+    #            raise forms.ValidationError(msg)
+    #    return date_of_birth
 
-        if self.cleaned_data['diagnosis'].strip():
-            q = self.cleaned_data['diagnosis']
-            q  = q.split()[1:]
 
-            print(q)
+    #def clean_diagnosis(self):
+    #
+    #    if self.cleaned_data['diagnosis'].strip():
+    #        q = self.cleaned_data['diagnosis']
+    #        q  = " ".join(q.split()[1:-1])
+    #
+    #        print(q)
+    #
+    #        description = ICD10.objects.filter(description=q)
+    #
+    #    if not description:
+    #        msg = "Invalid ICD10 Code"
+    #        raise forms.ValidationError(msg)
+    #        self.add_error('diagnosis', msg)
+    #    return q
 
-            description = ICD10.objects.filter(description=q)
 
-        if not description:
-            raise forms.ValidationError("Invalid ICD10 Code")
-        return q
+class IPDEventForm(forms.ModelForm):
+
+    class Meta:  
+        model = IPDEvent 
+        fields = "__all__" 
         
+        GENDER_CHOICES = [('M','Male'),('F','Female')]
+
+        widgets = {
+            'gender': forms.RadioSelect(choices=GENDER_CHOICES),
+        }
+
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
+    def send_event(self):
+        # send email using the self.cleaned_data dictionary
+        pass
+
+

@@ -17,6 +17,7 @@ LOCATION_TYPE_FILENAME = 'Location_Types.json'
 DISTRICT_FILENAME = 'District.json'
 PROVINCE_FILENAME = 'Province.json'
 ICD10_FILENAME = 'ICD10.json'
+SEPARATION_MODE_FILENAME = 'Separation_Modes.json'
 
 facility_path = Path(__file__).parents[3] / FACILITY_FILENAME
 facility_type_path = Path(__file__).parents[3] / FACILITY_TYPE_FILENAME
@@ -24,6 +25,7 @@ location_type_path = Path(__file__).parents[3] / LOCATION_TYPE_FILENAME
 district_path = Path(__file__).parents[3] / DISTRICT_FILENAME
 province_path = Path(__file__).parents[3] / PROVINCE_FILENAME
 facility_icd10_path = Path(__file__).parents[3] / ICD10_FILENAME
+separation_mode_path = Path(__file__).parents[3] / SEPARATION_MODE_FILENAME
 
 # python manage.py seed --mode=refresh
 
@@ -50,7 +52,7 @@ class Command(BaseCommand):
 
 
 def seed_icd10():
-    """Creates a facility object from json file"""
+    """Creates a icd10 object from json file"""
     logging.info("Loading icd10 codes...")
     
     with open(facility_icd10_path, 'r') as icd10_file:
@@ -64,7 +66,7 @@ def seed_icd10():
 
 
 def seed_facility_types():
-    """Creates a facility object from json file"""
+    """Creates a facility type object from json file"""
     logging.info("Loading facility types...")
     
     with open(facility_type_path, 'r') as facility_type_file:
@@ -77,7 +79,7 @@ def seed_facility_types():
 
 
 def seed_location_types():
-    """Creates a facility object from json file"""
+    """Creates a location type object from json file"""
     logging.info("Loading location types...")
     
     with open(location_type_path, 'r') as location_type_file:
@@ -90,7 +92,7 @@ def seed_location_types():
 
 
 def seed_provinces():
-    """Creates a facility object from json file"""
+    """Creates a province object from json file"""
     logging.info("Loading provinces...")
     
     with open(province_path, 'r') as province_file:
@@ -103,7 +105,7 @@ def seed_provinces():
 
 
 def seed_districts():
-    """Creates a facility object from json file"""
+    """Creates a district object from json file"""
     logging.info("Loading districts...")
     
     with open(district_path, 'r') as district_file:
@@ -136,6 +138,20 @@ def seed_facilities():
         facility.save()
 
 
+def seed_separation_modes():
+    """Creates a separation mode object from json file"""
+    logging.info("Loading separation modes...")
+    
+    with open(separation_mode_path, 'r') as separation_mode_file:
+        separation_modes = json.load(separation_mode_file)
+
+    for s in separation_modes:
+        separation_mode = SeparationMode()
+        separation_mode.name = s['name']
+        separation_mode.save()
+
+
+
 def clear_data():
     """Deletes all the table data"""
     logging.info("Delete facility instances")
@@ -150,6 +166,8 @@ def clear_data():
     LocationType.objects.all().delete()
     logging.info("Delete icd10 instances")
     ICD10.objects.all().delete()
+    logging.info("Delete separation modes instances")
+    SeparationMode.objects.all().delete()
 
 
 def run(self, options):
@@ -170,7 +188,7 @@ def run(self, options):
     seed_districts()
     seed_facilities()
     seed_icd10()
-
+    seed_separation_modes()
 
 
 

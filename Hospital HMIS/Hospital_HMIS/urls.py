@@ -27,18 +27,19 @@ urlpatterns = [
          ),
          name='login'),
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
-    # url(r"^autocomplete/", include("autocomplete_light.urls")),
     path('admin/', admin.site.urls),
-    
-    #path('OPDEvents', views.OPDEventList.as_view(), name='opd_event_list'),
-    #path('OPDEvent/<int:pk>', views.OPDEventDetail.as_view(), name='opd_event_detail'),
 
-    path('create_opd_event', views.create_opd_event),
-    path('list_opd_events', views.list_opd_events),  
-    path('edit_opd_event/<int:id>', views.edit_opd_event),  
-    path('update_opd_event/<int:pk>', views.update_opd_event),
-    path('delete_opd_event/<int:pk>', views.delete_opd_event),
+    path('create_opd_event', views.create_opd_event, name='create_opd_event'),
+    path('list_opd_events', views.list_opd_events, name='list_opd_events'),  
+    path('edit_opd_event/<int:pk>', views.edit_opd_event, name='edit_opd_event'),  
+    path('delete_opd_event/<int:pk>', views.delete_opd_event, name='delete_opd_event'),
+
+    path('create_ipd_event', views.create_ipd_event, name='create_ipd_event'),
+    path('list_ipd_events', views.list_ipd_events, name='list_ipd_events'),  
+    path('edit_ipd_event/<int:pk>', views.edit_ipd_event, name='edit_ipd_event'),  
+    path('delete_ipd_event/<int:pk>', views.delete_ipd_event, name='delete_ipd_event'),
 
     path('autocomplete_icd10_diagnosis', views.autocomplete_icd10_diagnosis),
-    path('export_csv', views.export_csv),
+    path('export_opd_events', views.export_ipd_events),
+    path('export_ipd_events', views.export_ipd_events),
 ]

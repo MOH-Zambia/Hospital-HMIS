@@ -1,10 +1,10 @@
 ﻿{% extends "app/layout.html" %}
 
-{% block content %}
-
 {% load widget_tweaks %}
 
-<form id="opd_event_form" class="post-form border border-primary bg-sucess text-black-50" method="post" action="/create_opd_event">
+{% block content %}
+
+<form id="create_opd_event_form" class="post-form border border-primary bg-sucess" method="post" action="/create_opd_event"  autocomplete="off">
     {% csrf_token %}
     <div class="container">
         <br>
@@ -16,116 +16,161 @@
         </div>  
 
         <div class="form-group row striped">  
-            <label class="col-sm-2 col-form-label" for="reference_number">Reference Number:</label>
+            <label class="col-sm-2 col-form-label" for="{{ form.reference_number.id_for_label }}">{{ form.reference_number.label }}</label>
             <div class="col-sm-4">  
                 {{ form.reference_number|add_class:"form-control" }} 
+            </div>
+            <div class="col-sm-4 text-danger">  
+                {{ form.reference_number.errors }} 
             </div>
         </div>
 
         <div class="form-group row">  
-            <label class="col-sm-2 col-form-label" for="date_of_birth">Date of Birth:</label>
+            <label class="col-sm-2 col-form-label" for="{{ form.date_of_birth.id_for_label }}">{{ form.date_of_birth.label }}</label>
             <div class="col-sm-4"> 
                 {{ form.date_of_birth|add_class:"form-control" }} 
+            </div>
+            <div class="col-sm-4 text-danger"> 
+                {{ form.date_of_birth.errors }} 
             </div>
         </div>
 
         <div class="form-group row striped">  
-            <label class="col-sm-2 col-form-label" for="age_in_days">Age in Days:</label>
+            <label class="col-sm-2 col-form-label" for="{{ form.age_in_days.id_for_label }}">{{ form.age_in_days.label }}</label>
             <div class="col-sm-4"> 
                 {{ form.age_in_days|add_class:"form-control" }} 
             </div>
+            <div class="col-sm-4 text-danger">  
+                {{ form.age_in_days.errors }} 
+            </div>
         </div>
 
         <div class="form-group row">
-            <label  class="col-sm-2 col-form-label" for="age_in_months">Age in Months:</label>
+            <label  class="col-sm-2 col-form-label" for="{{ form.age_in_months.id_for_label }}">{{ form.age_in_months.label }}</label>
             <div class="col-sm-4"> 
                 {{ form.age_in_months|add_class:"form-control" }} 
             </div>
+            <div class="col-sm-4 text-danger">  
+                {{ form.age_in_months.errors }} 
+            </div>
         </div>
 
         <div class="form-group row striped">
-            <label class="col-sm-2 col-form-label" for="age_in_years">Age in Years:</label>
+            <label class="col-sm-2 col-form-label" for="{{ form.age_in_years.id_for_label }}">{{ form.age_in_years.label }}</label>
             <div class="col-sm-4"> 
                 {{ form.age_in_years|add_class:"form-control" }} 
             </div>
+            <div class="col-sm-4 text-danger">  
+                {{ form.age_in_years.errors }} 
+            </div>
         </div>
 
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label" for="date_of_attendance">Date of Attendance:</label>
+            <label class="col-sm-2 col-form-label" for="{{ form.date_of_attendance.id_for_label }}">{{ form.date_of_attendance.label }}</label>
             <div class="col-sm-4">
                  {{ form.date_of_attendance|add_class:"form-control" }} 
             </div>
+            <div class="col-sm-4 text-danger"> 
+                {{ form.date_of_attendance.errors }} 
+            </div>
         </div>
 
         <div class="form-group row striped">
-            <label class="col-sm-2 col-form-label" for="location">Location:</label>
+            <label class="col-sm-2 col-form-label" for="{{ form.location.id_for_label }}">{{ form.location.label }}</label>
             <div class="col-sm-4">
                  {{ form.location|add_class:"form-control" }} 
             </div>
+            <div class="col-sm-4 text-danger">  
+                {{ form.location.errors }} 
+            </div>
         </div>
 
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label" for="gender">Gender:</label>
+            <label class="col-sm-2 col-form-label" for="{{ form.gender.id_for_label }}">{{ form.gender.label }}</label>
             <div class="col-sm-4">
                 {{ form.gender|add_class:"list-unstyled" }} 
             </div>
+            <div class="col-sm-4 text-danger">  
+                {{ form.gender.errors }} 
+            </div>
         </div>
 
         <div class="form-group row striped">
-            <label class="col-sm-2 col-form-label" for="diagnosis">Diagnosis:</label>
+            <label class="col-sm-2 col-form-label" for="{{ form.diagnosis.id_for_label }}">{{ form.diagnosis.label }}</label>
             <div class="col-sm-4">
                 {{ form.diagnosis|add_class:"form-control" }} 
+            </div>
+            <div class="col-sm-4 text-danger">  
+                {{ form.diagnosis.errors }} 
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label" for="secondary_diagnosis">Secondary Diagnosis:</label>
+            <label class="col-sm-2 col-form-label" for="{{ form.secondary_diagnosis.id_for_label }}">{{ form.secondary_diagnosis.label }}</label>
             <div class="col-sm-4">
                 {{ form.secondary_diagnosis|add_class:"form-control" }} 
+            </div>
+            <div class="col-sm-4 text-danger">  
+                {{ form.secondary_diagnosis.errors }} 
             </div>
         </div>
 
         <div class="form-group row striped">
-            <label class="col-sm-2 col-form-label" for="other_diagnosis">Other Diagnosis:</label>
+            <label class="col-sm-2 col-form-label" for="{{ form.other_diagnosis.id_for_label }}">{{ form.other_diagnosis.label }}</label>
             <div class="col-sm-4">
                 {{ form.other_diagnosis|add_class:"form-control" }}
+            </div>
+            <div class="col-sm-4">
+                {{ form.other_diagnosis.errors }} 
             </div>
         </div>
   
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label" for="referred_from">Referred From:</label>
+            <label class="col-sm-2 col-form-label" for="{{ form.referred_from.id_for_label }}">{{ form.referred_from.label }}</label>
             <div class="col-sm-4">
                  {{ form.referred_from|add_class:"form-control" }} 
+            </div>
+            <div class="col-sm-4">
+                {{ form.referred_from.errors }} 
             </div>
         </div>
 
         <div class="form-group row striped">
-            <label class="col-sm-2 col-form-label" for="referred_to">Referred To:</label>
+            <label class="col-sm-2 col-form-label" for="{{ form.referred_to.id_for_label }}">{{ form.referred_to.label }}</label>
             <div class="col-sm-4">
                  {{ form.referred_to|add_class:"form-control" }} 
+            </div>
+            <div class="col-sm-4">
+                {{ form.referred_to.errors }} 
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label" for="event_completed">Event Completed?</label>
+            <label class="col-sm-2 col-form-label" for="{{ form.event_completed.id_for_label }}">{{ form.event_completed.label }}</label>
             <div class="col-sm-4">
                 {{ form.event_completed }} 
+            </div>
+            <div class="col-sm-4">
+                {{ form.event_completed.errors }} 
             </div>
         </div>
 
         <div class="form-group row striped">
-            <label class="col-sm-2 col-form-label" for="comment">Comments:</label>
+            <label class="col-sm-2 col-form-label" for="{{ form.comments.id_for_label }}">{{ form.comments.label }}</label>
             <div class="col-sm-4">
                  {{ form.comments|add_class:"form-control" }} 
+            </div>
+            <div class="col-sm-4">
+                {{ form.comments.errors }} 
             </div>
         </div>
 
         <div class="form-group row">  
             <div class="col-sm-2">  
-                <button type="submit" class="btn btn-primary small-vertical-spacing">Save and add new</button>
+                <button type="submit" name="save_and_add_new" value="save_and_add_new" class="btn btn-primary small-vertical-spacing">Save and add new</button>
             </div>
             <div class="col-sm-2">  
-                <button type="submit" class="btn btn-success small-vertical-spacing">Save and go back</button>  
+                <button type="submit" name="save_and_go_back" value="save_and_go_back" class="btn btn-success small-vertical-spacing">Save and go back</button>  
             </div>
             <div class="col-sm-2">  
                 <button type="reset" class="btn btn-default small-vertical-spacing">Cancel</button>
@@ -199,6 +244,31 @@
                 $('#id_age_in_months').val(age_in_months);
                 $('#id_age_in_years').val(age_in_years);
             }); 
+
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-center",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+
+            {% if messages %}
+                {% for message in messages %}
+                    toastr.{{ message.tags }}('{{ message }}')
+                {% endfor %}
+            {% endif %}
+
         });
 </script>
 {% endblock %}

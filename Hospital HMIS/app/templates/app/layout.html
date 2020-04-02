@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }} - Hospital HMIS</title>
     {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'app/css/toastr.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'app/content/site.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'app/css/all.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'app/css/jquery-ui.min.css' %}" media="all" />
@@ -35,7 +36,7 @@
     </div>
 
     <div class="container body-content">
-{% block content %}{% endblock %}
+        {% block content %}{% endblock %}
         <hr/>
         <footer>
             <p>&copy; {{ year }} - Hospital HMIS</p>
@@ -51,8 +52,9 @@
     <script src="{% static 'app/scripts/popper.js' %}"></script>
     <!-- Moment.js -->
     <script src="{% static 'app/scripts/moment.js' %}"></script>
+    <script src="{% static 'app/scripts/toastr.min.js' %}"></script>
     
-{% block scripts %}{% endblock %}
+    {% block scripts %}{% endblock %}
 
 </body>
 </html>
