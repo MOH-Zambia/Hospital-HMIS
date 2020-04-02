@@ -3,7 +3,7 @@
 
 ## How run the tool
 ```
-Step 1: Download the tool from https://github.com/MOH-Zambia/Hospital-HMIS/releases 
+Step 1: Download the tool from [https://github.com/MOH-Zambia/Hospital-HMIS/releases] 
 ```
 
 ```bash
