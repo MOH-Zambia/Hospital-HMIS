@@ -30,7 +30,7 @@ class OPDEventForm(forms.ModelForm):
         #fields = ['reference_number', 'age_in_days', 'age_in_months', 'age_in_years', 'location', 
         #          'gender', 'diagnosis', 'secondary_diagnosis', 'other_diagnosis', 'referred_from', 'referred_to', 'event_completed', 'comments']
         
-        GENDER_CHOICES = [('M','Male'),('F','Female')]
+        GENDER_CHOICES = [('Male','Male'),('Female','Female')]
 
         widgets = {
             'gender': forms.RadioSelect(choices=GENDER_CHOICES),
@@ -82,7 +82,7 @@ class IPDEventForm(forms.ModelForm):
         model = IPDEvent 
         fields = "__all__" 
         
-        GENDER_CHOICES = [('M','Male'),('F','Female')]
+        GENDER_CHOICES = [('Male','Male'),('Female','Female')]
 
         widgets = {
             'gender': forms.RadioSelect(choices=GENDER_CHOICES),
