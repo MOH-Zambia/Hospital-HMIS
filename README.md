@@ -3,7 +3,11 @@
 
 ## How run the tool
 ```
-Step 1: Download the tool from [https://github.com/MOH-Zambia/Hospital-HMIS/releases] 
+Step 1: Download python from https://www.python.org/ftp/python/3.7.7/python-3.7.7.exe 
+```
+
+```
+Step 2: Download the tool from [https://github.com/MOH-Zambia/Hospital-HMIS/releases] 
 ```
 
 ```bash
