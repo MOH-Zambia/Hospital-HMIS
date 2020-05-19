@@ -1,9 +1,9 @@
 #define MyAppName MYAPP_NAME
 #define MyAppVersion MYAPP_VERSION
-#define MyAppPublisher "The pgAdmin Development Team"
-#define MyAppURL "www.pgadmin.org"
-#define MyAppExeName "pgAdmin4.exe"
-#define MyAppID "C14F64E7-DCB9-4DE1-8560-16F08FCFF64E"
+#define MyAppPublisher "Ministry of Health Development Team"
+#define MyAppURL "www.moh.gov.zm"
+#define MyAppExeName "HospitalHMIS.exe"
+#define MyAppID "DBCF89C7-06D1-42BC-9A8E-8A9E1195710D" 
 #define MyAppFullVersion MYAPP_FULLVERSION
 #define MyAppArchitecturesMode MYAPP_ARCHITECTURESMODE
 #define MyAppVCDist MYAPP_VCDIST
@@ -23,7 +23,7 @@ DisableWelcomePage=no
 DisableProgramGroupPage=auto
 LicenseFile=Resources\license.rtf
 OutputBaseFilename=setup
-SetupIconFile=Resources\pgAdmin4.ico
+SetupIconFile=Resources\HospitalHMIS.ico
 Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=admin
@@ -45,7 +45,7 @@ english.NewerVersionExists=A newer version of {#MyAppName}
 english.InvalidPath={#MyAppInvalidPath}
 
 [Icons]
-Name: {group}\{#MyAppName} {#MyAppVersion}; Filename: {app}\runtime\{#MyAppExeName}; IconFilename: {app}\pgAdmin4.ico; WorkingDir: {app}\runtime;
+Name: {group}\{#MyAppName} {#MyAppVersion}; Filename: {app}\runtime\{#MyAppExeName}; IconFilename: {app}\HospitalHMIS.ico; WorkingDir: {app}\runtime;
 
 [Files]
 Source: "..\..\win-build\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs;
