@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>HospitalHMIS.ico</file>
+        <file>back.png</file>
+        <file>forward.png</file>
+        <file>close.png</file>
+        <file>splash.png</file>
+        <file>HospitalHMIS.png</file>
+        <file>HospitalHMIS-mac.png</file>
+    </qresource>
+</RCC>

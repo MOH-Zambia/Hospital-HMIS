@@ -99,8 +99,8 @@ int main(int argc, char * argv[])
 #endif
 
     // Setup the settings management
-    QCoreApplication::setOrganizationName("pgadmin");
-    QCoreApplication::setOrganizationDomain("pgadmin.org");
+    QCoreApplication::setOrganizationName("HospitalHMIS");
+    QCoreApplication::setOrganizationDomain("www.moh.gov.zm");
     QCoreApplication::setApplicationName(PGA_APP_NAME.toLower().replace(" ", ""));
 
 #if QT_VERSION >= 0x050000

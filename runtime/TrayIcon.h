@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////////
 //
-// pgAdmin 4 - PostgreSQL Tools
+// Hospital HMIS - DHIS2 Tools
 //
-// Copyright (C) 2013 - 2020, The pgAdmin Development Team
-// This software is released under the PostgreSQL Licence
+// Copyright (C) 2020, GRZ Ministry of Health
+// This software is released under the GNU General Public License v3.0
 //
 // TrayIcon.h - Manages the tray icon
 //
@@ -12,7 +12,7 @@
 #ifndef TRAYICON_H
 #define TRAYICON_H
 
-#include "pgAdmin4.h"
+#include "HospitalHMIS.h"
 
 // QT headers
 #include <QWidget>

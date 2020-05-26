@@ -1,15 +1,15 @@
 //////////////////////////////////////////////////////////////////////////
 //
-// pgAdmin 4 - PostgreSQL Tools
+// Hospital HMIS - DHIS2 Tools
 //
-// Copyright (C) 2013 - 2020, The pgAdmin Development Team
-// This software is released under the PostgreSQL Licence
+// Copyright (C) 2020, GRZ Ministry of Health
+// This software is released under the GNU General Public License v3.0
 //
 // Server.cpp - Thread in which the web server will run.
 //
 //////////////////////////////////////////////////////////////////////////
 
-#include "pgAdmin4.h"
+#include "HospitalHMIS.h"
 #include "Logger.h"
 
 // Must be before QT
@@ -269,11 +269,11 @@ bool Server::Init()
 
     // Find the webapp
     QStringList paths;
-    paths.append("../web/"); // Linux source tree
-    paths.append("../../web/"); // Windows source tree
-    paths.append("../../../../web/"); // Mac source tree (in a dev env)
+    paths.append("../HospitalHMIS/"); // Linux source tree
+    paths.append("../../HospitalHMIS/"); // Windows source tree
+    paths.append("../../../../HospitalHMIS/"); // Mac source tree (in a dev env)
 #ifdef Q_OS_MAC
-    paths.append("../Resources/web/"); // Mac source tree (in a release app bundle)
+    paths.append("../Resources/HospitalHMIS/"); // Mac source tree (in a release app bundle)
 #endif
     paths.append(settings.value("ApplicationPath").toString()); // System configured value
     paths.append(""); // Should be last!
@@ -287,7 +287,7 @@ bool Server::Init()
         else
             dir.setPath(QCoreApplication::applicationDirPath() + "/" + paths[i]);
 
-        m_appfile = dir.canonicalPath() + "/pgAdmin4.py";
+        m_appfile = dir.canonicalPath() + "/manage.py";
 
         if (QFile::exists(m_appfile))
         {
@@ -299,8 +299,8 @@ bool Server::Init()
 
     if (!QFile::exists(m_appfile))
     {
-        Logger::GetLogger()->Log("Failed to locate pgAdmin4.py, terminating server thread.");
-        setError(tr("Failed to locate pgAdmin4.py, terminating server thread."));
+        Logger::GetLogger()->Log("Failed to locate manage.py, terminating server thread.");
+        setError(tr("Failed to locate manage.py, terminating server thread."));
         return false;
     }
 
@@ -321,8 +321,8 @@ void Server::run()
 
     // Set the port number and key, and force SERVER_MODE off.
     Logger::GetLogger()->Log("Set the port number, key and force SERVER_MODE off");
-    PyRun_SimpleString(QString("PGADMIN_INT_PORT = %1").arg(m_port).toLatin1());
-    PyRun_SimpleString(QString("PGADMIN_INT_KEY = '%1'").arg(m_key).toLatin1());
+    PyRun_SimpleString(QString("HOSPITAL_HMIS_INT_PORT = %1").arg(m_port).toLatin1());
+    PyRun_SimpleString(QString("HOSPITAL_HMIS_INT_KEY = '%1'").arg(m_key).toLatin1());
     PyRun_SimpleString(QString("SERVER_MODE = False").toLatin1());
 
     // Run the app!

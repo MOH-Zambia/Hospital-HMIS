@@ -1,7 +1,7 @@
-﻿Building pgAdmin windows installer on windows
+﻿Building HospitalHMIS windows installer on windows
 =================================
 
-To generate a pgAdmin 4 installer for Windows bit, the following packages must be installed:
+To generate a HospitalHMIS installer for Windows 32 bit, the following packages must be installed:
 
 1. Python installation
   - Python 3.4+ or above from https://www.python.org/

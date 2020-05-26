@@ -2,8 +2,8 @@
 //
 // Hospital HMIS - DHIS2 Tools
 //
-// Copyright (C) 2020, The GRZ Ministry of Health Development Team
-// This software is released under the GPLv3 Licence
+// Copyright (C) 2020, GRZ Ministry of Health
+// This software is released under the GNU General Public License v3.0
 //
 // HospitalHMIS.h - Main application header
 //
