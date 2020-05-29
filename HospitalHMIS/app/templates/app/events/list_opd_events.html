@@ -4,13 +4,18 @@
 <div class="container-fluid body-content">
     <center><h3>OPD Events</h3></center>
 
-    <label>Start date:</label>
-    <input id="startdate" class="datepicker"></input>
-    <label>End date:</label>
-    <input id="enddate" class="datepicker"></input>
+    <div class="row">
+        <div class="col-xs-12 mb-5">
+            <label>Start date:</label>
+            <input id="startdate" class="datepicker"></input>
+            <label>End date:</label>
+            <input id="enddate" class="datepicker"></input>
+        </div>
+    </div>
+    
 
     <table id="eventsDataTable" class="display" style="width:100%">
-        <thead class="thead-dark">
+        <thead>
             <tr>
                 <th>Reference Number</th>
                 <th>Date of Birth</th>
@@ -27,6 +32,7 @@
                 <th>Referred From</th>
                 <th>Referred To</th>
                 <th>Event Completed</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -37,8 +43,8 @@
                 <td>{{ opd_event.age_in_days }}</td>
                 <td>{{ opd_event.age_in_months }}</td>
                 <td>{{ opd_event.age_in_years }}</td>
-                <td>{{ opd_event.date_of_attendance }}</td>
-                <td>{{ opd_event.created_at }}</td>
+                <td>{{ opd_event.date_of_attendance | date:"d/m/Y" }}</td>
+                <td>{{ opd_event.created_at | date:"d/m/Y" }}</td>
                 <td>{{ opd_event.location }}</td>
                 <td>{{ opd_event.gender }}</td>
                 <td>{{ opd_event.diagnosis }}</td>
@@ -69,53 +75,56 @@
 <script>
         $(document).ready(function(){ 
 
-            //Global variable for future use
-            var datepickers = [{
-                id: 'startdate',
-                coid: 'enddate',
-                value: null,
-                limiter: 'minDate'
-              }, {
-                id: 'enddate',
-                coid: 'startdate',
-                value: null,
-                limiter: 'maxDate'
-              }
-            ];
-            //Translate 'yy/mm/dd' string to UTC date
-            const yymmddUTC = str => new Date(...str.split('/').map((value,index) => index == 1 ? value-- : value));
-
             var eventsDataTable = $('#eventsDataTable').DataTable();
 
-            //Limit datepicker options to those valid for current dataset
-            var dates = eventsDataTable.column(6).data().unique().sort();
-           
-            var minDate = (typeof dates[0] === 'undefined' ? '1920/01/01' : dates[0]);
-            var maxDate = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+            $("#startdate").datepicker({
+              "dateFormat": "dd/mm/yy",
+              "onSelect": function(date) {  // This handler kicks off the filtering.
+                minDateFilter = new Date(date).getTime();
+                eventsDataTable.draw(); // Redraw the table with the filtered data.
+                console.log(date);
+              }
+            }).keyup(function() {
+              minDateFilter = new Date(this.value).getTime();
+              eventsDataTable.draw();
+            });
 
-            //datepicker objects definition
-            $('.datepicker').datepicker({
-                dateFormat: 'yy/mm/dd',
-                changeMonth: true,
-                defaultDate: minDate,
-                changeYear: true,
-                yearRange: minDate.substr(0,4)+':'+maxDate.substr(0,4),
-                onSelect: function (selectedDate) {
-                    let datepicker = datepickers.find(entry => entry.id == $(this).attr('id'));
-                    $(`#${datepicker.coid}`).datepicker('option', datepicker.limiter, selectedDate);
-                    datepicker.value = yymmddUTC(selectedDate);
-                    eventsDataTable.draw();
-                }
-            }).on('change', function(){
-                datepickers[datepickers.findIndex(item => item.id == $(this).attr('id'))].value = yymmddUTC($(this).val());
+            $("#enddate").datepicker({
+              "dateFormat": "dd/mm/yy",
+              "onSelect": function(date) {
+                maxDateFilter = new Date(date).getTime();
                 eventsDataTable.draw();
+              }
+            }).keyup(function() {
+              maxDateFilter = new Date(this.value).getTime();
+              eventsDataTable.draw();
             });
 
-            //External search function
-            $.fn.DataTable.ext.search.push((settings, row) => {
-                let rowDate = yymmddUTC(row[3]);
-                return (rowDate >= datepickers[0].value || datepickers[0].value == null) && (rowDate <= datepickers[1].value || datepickers[1].value == null);
-            });
+            // The below code actually does the date filtering.
+            minDateFilter = "";
+            maxDateFilter = "";
+
+            $.fn.dataTableExt.afnFiltering.push(
+              function(oSettings, aData, iDataIndex) {
+                if (typeof aData._date == 'undefined') {
+                  aData._date = new Date(aData[6]).getTime();
+                }
+
+                if (minDateFilter && !isNaN(minDateFilter)) {
+                  if (aData._date < minDateFilter) {
+                    return false;
+                  }
+                }
+
+                if (maxDateFilter && !isNaN(maxDateFilter)) {
+                  if (aData._date > maxDateFilter) {
+                    return false;
+                  }
+                }
+
+                return true;
+              }
+            );
 
             toastr.options = {
                 "closeButton": false,

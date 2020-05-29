@@ -1,10 +1,20 @@
 ﻿{% extends "app/layout.html" %}
 
 {% block content %}
-<div class="container body-content">
+<div class="container-fuid body-content">
     <center><h3>IPD Events</h3></center>
-    <table id="example" class="display" style="width:100%">
-        <thead class="thead-dark">
+
+    <div class="row">
+        <div class="col-xs-12 mb-5">
+            <label>Start date:</label>
+            <input id="startdate" class="datepicker"></input>
+            <label>End date:</label>
+            <input id="enddate" class="datepicker"></input>
+        </div>
+    </div>
+
+    <table id="eventsDataTable" class="display" style="width:100%">
+        <thead>
             <tr>
                 <th>Reference Number</th>
                 <th>Date of Birth</th>
@@ -23,6 +33,7 @@
                 <th>Referred From</th>
                 <th>Referred To</th>
                 <th>Event Completed</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -65,7 +76,55 @@
 {% block scripts %}
 <script>
         $(document).ready(function(){ 
-            $('#example').DataTable();        
+            var eventsDataTable = $('#eventsDataTable').DataTable();
+
+            $("#startdate").datepicker({
+              "dateFormat": "yy/mm/dd",
+              "onSelect": function(date) {  // This handler kicks off the filtering.
+                minDateFilter = new Date(date).getTime();
+                eventsDataTable.draw(); // Redraw the table with the filtered data.
+              }
+            }).keyup(function() {
+              minDateFilter = new Date(this.value).getTime();
+              eventsDataTable.draw();
+            });
+
+            $("#enddate").datepicker({
+              "dateFormat": "yy/mm/dd",
+              "onSelect": function(date) {
+                maxDateFilter = new Date(date).getTime();
+                eventsDataTable.draw();
+              }
+            }).keyup(function() {
+              maxDateFilter = new Date(this.value).getTime();
+              eventsDataTable.draw();
+            });
+
+            // The below code actually does the date filtering.
+            minDateFilter = "";
+            maxDateFilter = "";
+
+            $.fn.dataTableExt.afnFiltering.push(
+              function(oSettings, aData, iDataIndex) {
+                if (typeof aData._date == 'undefined') {
+                  aData._date = new Date(aData[6]).getTime(); 
+                }
+
+                if (minDateFilter && !isNaN(minDateFilter)) {
+                  if (aData._date < minDateFilter) {
+                    return false;
+                  }
+                }
+
+                if (maxDateFilter && !isNaN(maxDateFilter)) {
+                  if (aData._date > maxDateFilter) {
+                    return false;
+                  }
+                }
+
+                return true;
+              }
+            );      
 
             toastr.options = {
                 "closeButton": false,

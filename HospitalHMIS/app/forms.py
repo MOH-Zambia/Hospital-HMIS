@@ -50,10 +50,10 @@ class OPDEventForm(forms.ModelForm):
         if date_of_birth:
             try:
                 datetime.strftime(date_of_birth, '%m/%d/%Y')
-                print('The date {} is valid.'.format(date_of_birth))
+                # print('The date {} is valid.'.format(date_of_birth))
             except ValueError:
                 msg = 'The date {} is invalid'.format(date_of_birth)
-                print(msg)
+                # print(msg)
                 raise forms.ValidationError(msg)
         return date_of_birth
 
@@ -141,7 +141,7 @@ class IPDEventForm(forms.ModelForm):
     def clean_diagnosis(self):
         q = self.cleaned_data['diagnosis']
         if q.strip():     
-            icd10_code = q.split(" ", 1)[0]
+            icd10_code = q.split(" ", 1)[0].strip()
             description = ICD10.objects.filter(code=icd10_code)
          
             if not description:
