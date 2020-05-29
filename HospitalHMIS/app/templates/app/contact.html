@@ -1,18 +1,18 @@
 {% extends "app/layout.html" %}
 
 {% block content %}
+<div class="container body-content">
+    <h2>{{ title }}</h2>
 
-<h2>{{ title }}</h2>
+    <address>
+        The Ministry of Health<br />
+        Ndeke House<br />
+        Haile Selassie Avenue<br />
+        PO Box, 30205, Lusaka<br />
+    </address>
 
-<address>
-    The Ministry of Health<br />
-    Ndeke House<br />
-    Haile Selassie Avenue<br />
-    PO Box, 30205, Lusaka<br />
-</address>
-
-<address>
-    <strong>Support:</strong>   <a href="mailto:info@moh.gov.zm">hmis@moh.gov.zm</a><br />
-</address>
-
+    <address>
+        <strong>Support:</strong>   <a href="mailto:info@moh.gov.zm">hmis@moh.gov.zm</a><br />
+    </address>
+</div>
 {% endblock %}

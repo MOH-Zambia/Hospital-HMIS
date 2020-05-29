@@ -1,70 +1,121 @@
 ﻿{% extends "app/layout.html" %}
 
 {% block content %}
-
-<div class="table-responsive-md">
+<div class="container-fluid body-content">
     <center><h3>OPD Events</h3></center>
-<table class="table table-striped table-bordered">
-    <thead class="thead-dark">
-        <tr>
-            <th>Reference Number</th>
-            <th>Date of Birth</th>
-            <th>Age in Days</th>
-            <th>Age in Months</th>
-            <th>Age in Years</th>
-            <th>Date of Attendance</th>
-            <th>Report Date</th>
-            <th>Location</th>
-            <th>Gender</th>
-            <th>Diagnosis</th>
-            <th>Secondary Diagnosis</th>
-            <th>Other Diagnosis</th>
-            <th>Referred From</th>
-            <th>Referred To</th>
-            <th>Event Completed</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for opd_event in opd_events %}
-        <tr>
-            <td>{{ opd_event.reference_number }}</td>
-            <td>{{ opd_event.date_of_birth }}</td>
-            <td>{{ opd_event.age_in_days }}</td>
-            <td>{{ opd_event.age_in_months }}</td>
-            <td>{{ opd_event.age_in_years }}</td>
-            <td>{{ opd_event.date_of_attendance }}</td>
-            <td>{{ opd_event.created_at }}</td>
-            <td>{{ opd_event.location }}</td>
-            <td>{{ opd_event.gender }}</td>
-            <td>{{ opd_event.diagnosis }}</td>
-            <td>{{ opd_event.secondary_diagnosis }}</td>
-            <td>{{ opd_event.other_diagnosis }}</td>
-            <td>{{ opd_event.referred_from }}</td>
-            <td>{{ opd_event.referred_to }}</td>
-            <td>{{ opd_event.event_completed }}</td>
-            <td>
-                <a href="/edit_opd_event/{{ opd_event.id }}"><span class="glyphicon glyphicon-pencil">Edit</span></a>
-                <a href="/delete_opd_event/{{ opd_event.id }}"><span class="glyphicon glyphicon-remove">Delete</span></a>
-            </td>
-        </tr>
 
-        {% endfor %}
-    </tbody>
-</table>
+    <label>Start date:</label>
+    <input id="startdate" class="datepicker"></input>
+    <label>End date:</label>
+    <input id="enddate" class="datepicker"></input>
 
-<br>  
-<br>  
-<center><a href="/create_opd_event" class="btn btn-primary">Add New Record</a> <a href="/export_opd_events" class="btn btn-success">Export CSV</a></center>
+    <table id="eventsDataTable" class="display" style="width:100%">
+        <thead class="thead-dark">
+            <tr>
+                <th>Reference Number</th>
+                <th>Date of Birth</th>
+                <th>Age in Days</th>
+                <th>Age in Months</th>
+                <th>Age in Years</th>
+                <th>Date of Attendance</th>
+                <th>Report Date</th>
+                <th>Location</th>
+                <th>Gender</th>
+                <th>Diagnosis</th>
+                <th>Secondary Diagnosis</th>
+                <th>Other Diagnosis</th>
+                <th>Referred From</th>
+                <th>Referred To</th>
+                <th>Event Completed</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for opd_event in opd_events %}
+            <tr>
+                <td>{{ opd_event.reference_number }}</td>
+                <td>{{ opd_event.date_of_birth }}</td>
+                <td>{{ opd_event.age_in_days }}</td>
+                <td>{{ opd_event.age_in_months }}</td>
+                <td>{{ opd_event.age_in_years }}</td>
+                <td>{{ opd_event.date_of_attendance }}</td>
+                <td>{{ opd_event.created_at }}</td>
+                <td>{{ opd_event.location }}</td>
+                <td>{{ opd_event.gender }}</td>
+                <td>{{ opd_event.diagnosis }}</td>
+                <td>{{ opd_event.secondary_diagnosis }}</td>
+                <td>{{ opd_event.other_diagnosis }}</td>
+                <td>{{ opd_event.referred_from }}</td>
+                <td>{{ opd_event.referred_to }}</td>
+                <td>{{ opd_event.event_completed }}</td>
+                <td>
+                    <a href="/edit_opd_event/{{ opd_event.id }}"><span class="glyphicon glyphicon-pencil">Edit</span></a>
+                    <a href="/delete_opd_event/{{ opd_event.id }}"><span class="glyphicon glyphicon-remove">Delete</span></a>
+                </td>
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>  
+    <br>  
+
+    <center><a href="/create_opd_event" class="btn btn-primary">Add New Record</a> <a href="/export_opd_events" class="btn btn-success">Export CSV</a></center>
 
 </div>
-
 {% endblock %}
 
 {% block scripts %}
 <script>
         $(document).ready(function(){ 
 
-            $('#example').DataTable();
+            //Global variable for future use
+            var datepickers = [{
+                id: 'startdate',
+                coid: 'enddate',
+                value: null,
+                limiter: 'minDate'
+              }, {
+                id: 'enddate',
+                coid: 'startdate',
+                value: null,
+                limiter: 'maxDate'
+              }
+            ];
+            //Translate 'yy/mm/dd' string to UTC date
+            const yymmddUTC = str => new Date(...str.split('/').map((value,index) => index == 1 ? value-- : value));
+
+            var eventsDataTable = $('#eventsDataTable').DataTable();
+
+            //Limit datepicker options to those valid for current dataset
+            var dates = eventsDataTable.column(6).data().unique().sort();
+           
+            var minDate = (typeof dates[0] === 'undefined' ? '1920/01/01' : dates[0]);
+            var maxDate = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+
+            //datepicker objects definition
+            $('.datepicker').datepicker({
+                dateFormat: 'yy/mm/dd',
+                changeMonth: true,
+                defaultDate: minDate,
+                changeYear: true,
+                yearRange: minDate.substr(0,4)+':'+maxDate.substr(0,4),
+                onSelect: function (selectedDate) {
+                    let datepicker = datepickers.find(entry => entry.id == $(this).attr('id'));
+                    $(`#${datepicker.coid}`).datepicker('option', datepicker.limiter, selectedDate);
+                    datepicker.value = yymmddUTC(selectedDate);
+                    eventsDataTable.draw();
+                }
+            }).on('change', function(){
+                datepickers[datepickers.findIndex(item => item.id == $(this).attr('id'))].value = yymmddUTC($(this).val());
+                eventsDataTable.draw();
+            });
+
+            //External search function
+            $.fn.DataTable.ext.search.push((settings, row) => {
+                let rowDate = yymmddUTC(row[3]);
+                return (rowDate >= datepickers[0].value || datepickers[0].value == null) && (rowDate <= datepickers[1].value || datepickers[1].value == null);
+            });
 
             toastr.options = {
                 "closeButton": false,

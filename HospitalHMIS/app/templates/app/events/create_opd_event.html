@@ -3,7 +3,7 @@
 {% load widget_tweaks %}
 
 {% block content %}
-
+<div class="container body-content">
 <form id="create_opd_event_form" class="post-form border border-primary bg-sucess" method="post" action="/create_opd_event"  autocomplete="off">
     {% csrf_token %}
     <div class="container">
@@ -179,7 +179,7 @@
 
     </div>
 </form>
-
+</div>
 {% endblock %}
 
 {% block scripts %}
@@ -233,17 +233,32 @@
                 return Math.abs(Math.floor(diff/365.25));
              }
 
-            $("#id_date_of_birth").datepicker({ dateFormat: 'dd/mm/yy' });
-            $("#id_date_of_attendance").datepicker({ dateFormat: 'dd/mm/yy' });
+            $("#id_date_of_birth").datepicker({ 
+                dateFormat: 'dd/mm/yy', 
+                changeMonth: true,
+                changeYear: true,
+                minYear: 1930,
+                maxYear: parseInt(moment().format('YYYY'),10),
+            });
 
             $("#id_date_of_birth").change(function () {
-                var age_in_days = date_diff_in_days(new Date($(this).val()), new Date())
-                var age_in_months = date_diff_in_months(new Date($(this).val()), new Date())
-                var age_in_years = date_diff_in_years(new Date($(this).val()), new Date())
+                var age_in_days = date_diff_in_days(new Date($(this).val()), new Date());
+                var age_in_months = date_diff_in_months(new Date($(this).val()), new Date());
+                var age_in_years = date_diff_in_years(new Date($(this).val()), new Date());
                 $('#id_age_in_days').val(age_in_days);
                 $('#id_age_in_months').val(age_in_months);
                 $('#id_age_in_years').val(age_in_years);
             }); 
+
+            $("#id_date_of_attendance").datepicker({ 
+                dateFormat: 'dd/mm/yy', 
+                changeMonth: true,
+                changeYear: true,
+                minYear: 1930,
+                maxYear: parseInt(moment().format('YYYY'),10),
+            });
+
+
 
             toastr.options = {
                 "closeButton": false,

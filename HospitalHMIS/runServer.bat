@@ -1,7 +1,8 @@
 @echo off
 
-rem CALL "%~dp0env\Scripts\activate.bat"
+CALL "%~dp0env\Scripts\activate" || EXIT /B 1
+python manage.py runserver 
 
-env\Scripts\python.exe manage.py runserver 
+
 
 
